@@ -1,0 +1,175 @@
+[
+  {
+    "id": 1,
+    "img": "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=400",
+    "name": "Guitarra Tagima TG-530",
+    "description": "Guitarra elétrica Tagima TG-530 com 22 trastes, corpo em tília e captadores single coil.",
+    "price": 1299.9,
+    "category": "Guitarras",
+    "discount": 0.1,
+    "isActived": true,
+    "shipment": "Correios"
+  },
+  {
+    "id": 2,
+    "img": "https://images.unsplash.com/photo-1525201548942-d8732f6617a0?w=400",
+    "name": "Violão Seizi WS-15",
+    "description": "Violão folk com tampo em spruce natural, escala em jatobá e afinação precisa.",
+    "price": 899.9,
+    "category": "Violões",
+    "discount": 0.15,
+    "isActived": true,
+    "shipment": "Correios"
+  },
+  {
+    "id": 3,
+    "img": "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?w=400",
+    "name": "Piano Digital Yamaha P-45",
+    "description": "Piano digital com 88 teclas pesadas, som realístico e saída para fone de ouvido.",
+    "price": 3499.9,
+    "category": "Teclados",
+    "discount": 0.05,
+    "isActived": true,
+    "shipment": "Grátis"
+  },
+  {
+    "id": 4,
+    "img": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400",
+    "name": "Bateria Odery Fluence",
+    "description": "Bateria acústica 5 peças com acabamento premium, baquetas e banco inclusos.",
+    "price": 4200.0,
+    "category": "Baterias",
+    "discount": 0.2,
+    "isActived": true,
+    "shipment": "Grátis"
+  },
+  {
+    "id": 5,
+    "img": "https://images.unsplash.com/photo-1558098329-a11cff621064?w=400",
+    "name": "Microfone Shure SM58",
+    "description": "Microfone dinâmico cardioide para vocais ao vivo, padrão profissional da indústria.",
+    "price": 799.9,
+    "category": "Microfones",
+    "discount": 0.0,
+    "isActived": true,
+    "shipment": "Correios"
+  },
+  {
+    "id": 6,
+    "img": "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=400",
+    "name": "Interface de Áudio Focusrite Scarlett 2i2",
+    "description": "Interface USB com 2 entradas combo XLR/P10, pré-amplificadores de alta qualidade.",
+    "price": 1150.0,
+    "category": "Eletrônicos",
+    "discount": 0.1,
+    "isActived": true,
+    "shipment": "Correios"
+  },
+  {
+    "id": 7,
+    "img": "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=400",
+    "name": "Fone de Ouvido Sony MDR-7506",
+    "description": "Fone profissional fechado para estúdio, resposta de frequência 10Hz-20kHz.",
+    "price": 649.9,
+    "category": "Eletrônicos",
+    "discount": 0.0,
+    "isActived": true,
+    "shipment": "Correios"
+  },
+  {
+    "img": "https://images.unsplash.com/photo-1547394765-185e1e68f34e?w=400",
+    "name": "Baixo Fender Squier Affinity",
+    "description": "Baixo 4 cordas com corpo em álamo, captador split single-coil e acabamento sunburst.",
+    "price": 2199.9,
+    "category": "Baixos",
+    "discount": 0.12,
+    "isActived": true,
+    "shipment": "Grátis"
+  },
+  {
+    "id": 8,
+    "img": "https://images.unsplash.com/photo-1561489413-985b06da5bee?w=400",
+    "name": "Amplificador Fender Frontman 10G",
+    "description": "Amplificador valvulado 10W com canal de overdrive e controle de graves e agudos.",
+    "price": 750.0,
+    "category": "Amplificadores",
+    "discount": 0.08,
+    "isActived": true,
+    "shipment": "PAC"
+  },
+  {
+    "id": 9,
+    "img": "https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?w=400",
+    "name": "Teclado Roland GO:KEYS",
+    "description": "Teclado arranjador com 61 teclas, Bluetooth, centenas de sons e ritmos internos.",
+    "price": 1899.9,
+    "category": "Teclados",
+    "discount": 0.18,
+    "isActived": true,
+    "shipment": "Correios"
+  },
+  {
+    "img": "https://images.unsplash.com/photo-1564186763535-ebb21ef5277f?w=400",
+    "name": "Cajon Contemporânea Folk",
+    "description": "Cajon folk em compensado báltico com tirante interno ajustável e snare integrado.",
+    "price": 429.9,
+    "category": "Percussão",
+    "discount": 0.05,
+    "isActived": true,
+    "shipment": "Correios"
+  },
+  {
+    "id": 10,
+    "img": "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400",
+    "name": "Teclado MIDI Arturia KeyStep 37",
+    "description": "Controlador MIDI com 37 teclas semi-pesadas, sequenciador e arpejador integrados.",
+    "price": 1349.9,
+    "category": "Eletrônicos",
+    "discount": 0.1,
+    "isActived": true,
+    "shipment": "Correios"
+  },
+  {
+    "img": "https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=400",
+    "name": "Violino Eagle VK644",
+    "description": "Violino 4/4 com arco, breu, estojo e ombreira inclusos, ideal para iniciantes.",
+    "price": 589.9,
+    "category": "Cordas",
+    "discount": 0.0,
+    "isActived": true,
+    "shipment": "Correios"
+  },
+  {
+    "id": 11,
+    "img": "https://images.unsplash.com/photo-1551969014-7d2c4cddf0b6?w=400",
+    "name": "Pedal de Efeito Boss DS-1",
+    "description": "Pedal distortion clássico usado por guitarristas do mundo todo há décadas.",
+    "price": 499.9,
+    "category": "Pedais",
+    "discount": 0.07,
+    "isActived": true,
+    "shipment": "PAC"
+  },
+  {
+    "id": 12,
+    "img": "https://images.unsplash.com/photo-1462965326201-d02e4f455804?w=400",
+    "name": "Saxofone Alto Eagle SA500",
+    "description": "Saxofone alto em Mib com acabamento laqueado dourado e estojo resistente incluso.",
+    "price": 2799.9,
+    "category": "Sopros",
+    "discount": 0.15,
+    "isActived": true,
+    "shipment": "Grátis"
+  },
+  {
+    "id": 13,
+    "img": "https://images.unsplash.com/photo-1445985543470-41fba5c3144a?w=400",
+    "name": "Ukulele Shelter Soprano",
+    "description": "Ukulele soprano com tampo em abeto, escala em rosewood e afinadores cromados.",
+    "price": 259.9,
+    "category": "Cordas",
+    "discount": 0.0,
+    "isActived": true,
+    "shipment": "Correios"
+  }
+]
