@@ -1,4 +1,4 @@
-import { Category } from "./category.model";
+import type { Image } from "./image.model";
 
 export enum Shipment {
   FREE = "Grátis",
@@ -8,15 +8,23 @@ export enum Shipment {
 
 export class Product {
   constructor(
-    public id: number,
-    public img: string,
-    public name: string,
+    public categoryId: number,
+    public compareAtPrice: number,
+    public createdAt: string,
     public description: string,
-    public price: number,
-    public category: Category,
     public discount: number,
-    public isActived: boolean,
+    public id: string,
+    public images: Image[] = [],
+    public isActive: boolean,
+    public name: string,
+    public price: number,
     public shipment: Shipment,
+    public sku: string,
+    public slug: string,
+    public stock: number,
+    public stripePriceId: string,
+    public stripeProductId: string,
+    public updatedAt: string,
   ) {}
 
   displayDiscount(): number {

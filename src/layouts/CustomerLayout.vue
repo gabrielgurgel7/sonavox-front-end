@@ -2,7 +2,7 @@
 import { defineComponent } from "vue";
 import { Product } from "@/models/product.model";
 import { Cart } from "@/models/cart.model";
-import { MenuIcon, ShoppingBag, SearchIcon } from "@lucide/vue";
+import { MenuIcon, ShoppingBag, SearchIcon, X } from "@lucide/vue";
 import CartSummary from "@/components/CartSummary.vue"; // ← faltava isso
 
 export default defineComponent({
@@ -25,7 +25,7 @@ export default defineComponent({
       this.cart.removeItem(product);
     },
   },
-  components: { MenuIcon, ShoppingBag, SearchIcon, CartSummary },
+  components: { MenuIcon, ShoppingBag, SearchIcon, X, CartSummary },
 });
 </script>
 
@@ -131,11 +131,17 @@ export default defineComponent({
       position="right"
       :pt="{
         root: 'bg-white w-500',
-        content: 'bg-white',
+        header: 'flex items-center justify-between px-6 py-4 border-b border-gray-200',
+        content: 'bg-white p-0',
+        closeButton:
+          'h-9 w-9 rounded-full flex items-center justify-center hover:bg-indigo-50 transition-colors border-none bg-transparent cursor-pointer',
       }"
     >
       <template #header>
         <span class="text-2xl text-indigo-400 font-bold mb-4">Carrinho</span>
+      </template>
+      <template #closeicon>
+        <X :size="18" class="text-indigo-400" />
       </template>
       <CartSummary
         :cart="cart"

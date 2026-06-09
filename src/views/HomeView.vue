@@ -1,34 +1,56 @@
 <script lang="ts">
-import { Category } from "@/models/category.model";
-import { Product, Shipment } from "@/models/product.model";
+import { Product } from "@/models/product.model";
 import ProductCard from "@/components/ProductCard.vue";
 import AppHomeBanner from "@/components/AppHomeBanner.vue";
-import productsData from "@/data/productsData.json";
+
+import { ProductRest } from "@/services/rest/product.rest";
 
 export default {
   components: { AppHomeBanner, ProductCard },
   data() {
     return {
-      products: productsData.map(
-        (p) =>
-          new Product(
-            p.id ?? 0,
-            p.img,
-            p.name,
-            p.description,
-            p.price,
-            new Category(p.category),
-            p.discount,
-            p.isActived,
-            p.shipment as Shipment,
-          ),
-      ),
+      products: [],
     };
+  },
+  computed: {
+    rest(): ProductRest {
+      return new ProductRest();
+    },
   },
   methods: {
     goToProduct(product: Product) {
       this.$router.push(`/product/${product.id}`);
     },
+    getProducts() {
+      const params = { page: 1, limit: 10 };
+      this.rest.getAll(params).then((res: any) => {
+        this.products = res.data.data.map((product: any) => {
+          return new Product(
+            product.categoryId,
+            product.compareAtPrice,
+            product.createdAt,
+            product.description,
+            product.discount,
+            product.id,
+            product.images,
+            product.isActive,
+            product.name,
+            product.price,
+            product.shipment,
+            product.sku,
+            product.slug,
+            product.stock,
+            product.stripePriceId,
+            product.stripeProductId,
+            product.updatedAt,
+          );
+        });
+        console.log(this.products);
+      });
+    },
+  },
+  mounted() {
+    this.getProducts();
   },
 };
 </script>

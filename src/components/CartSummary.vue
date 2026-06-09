@@ -24,7 +24,7 @@ export default defineComponent({
     >
       <img
         class="w-24 h-24 rounded-xl object-cover"
-        :src="item.product.img"
+        :src="item.product.images[0]?.url"
         :alt="item.product.name"
       />
 

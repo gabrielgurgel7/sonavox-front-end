@@ -10,6 +10,9 @@ import DashboardView from "@/views/admin/DashboardView.vue";
 import OrdersView from "@/views/admin/OrdersView.vue";
 import CheckoutView from "@/views/CheckoutView.vue";
 
+// Guards
+import { authorizedGuard } from "./guards/authorized.guard";
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -60,30 +63,6 @@ const router = createRouter({
   ],
 });
 
-router.beforeEach((to, from, next) => {
-  if (to?.meta?.auth) {
-    const token = {
-      isAuth: false,
-      role: "customer",
-    };
-
-    // Não auth vai para login
-    if (!token.isAuth) {
-      next("/login");
-      return;
-    }
-
-    // Vai para home auth mas com role incorreto
-    if (to.meta.role && to.meta.role !== token.role) {
-      next("/");
-      return;
-    }
-
-    // Passa autenticado e com role correto:
-    next();
-    return;
-  }
-  next();
-});
+authorizedGuard(router);
 
 export default router;
