@@ -3,6 +3,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import CustomerLayout from "@/layouts/CustomerLayout.vue";
 import AdminLayout from "@/layouts/AdminLayout.vue";
 // Views
+import LoginView from "@/views/LoginView.vue";
+import RegisterView from "@/views/RegisterView.vue";
 import HomeView from "@/views/HomeView.vue";
 import ProductsView from "@/views/ProductsView.vue";
 import ProductDetailView from "@/views/ProductDetailView.vue";
@@ -16,6 +18,14 @@ import { authorizedGuard } from "./guards/authorized.guard";
 const router = createRouter({
   history: createWebHistory(),
   routes: [
+    {
+      path: "/login",
+      component: LoginView,
+    },
+    {
+      path: "/register",
+      component: RegisterView,
+    },
     {
       path: "/",
       component: CustomerLayout,
