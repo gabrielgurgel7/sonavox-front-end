@@ -12,6 +12,7 @@ export class AxiosConfig {
 
   // Configuração dos interceptadores:
   setConfig() {
+    // Interceptador para request:
     this.$instance.interceptors.request.use((config) => {
       const token = localStorage.getItem("token");
       if (token) {
@@ -19,7 +20,7 @@ export class AxiosConfig {
       }
       return config;
     });
-
+    // Interceptador para response:
     this.$instance.interceptors.response.use((res) => {
       return res;
     });

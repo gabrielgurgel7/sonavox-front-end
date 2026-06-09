@@ -13,6 +13,11 @@ export default defineComponent({
       type: Object as PropType<Product>,
     },
   },
+  computed: {
+    mainImage(): string {
+      return this.product?.images.find((i) => i.isMain)?.url ?? this.product?.images[0]?.url ?? "";
+    },
+  },
 });
 </script>
 
@@ -20,11 +25,7 @@ export default defineComponent({
   <article class="flex flex-col w-full border border-gray-300 rounded-3xl overflow-hidden">
     <!-- Imagem do produto -->
     <figure class="m-0" @click="$emit('view-product', product)">
-      <img
-        class="w-full aspect-square object-cover"
-        :src="product?.images[0]?.url"
-        :alt="product?.name"
-      />
+      <img class="w-full aspect-square object-cover" :src="mainImage" :alt="product?.name" />
     </figure>
 
     <!-- Corpo do card -->
