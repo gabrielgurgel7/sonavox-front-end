@@ -14,7 +14,6 @@ export default defineComponent({
 
 <template>
   <div>
-    <h1 class="text-2xl text-indigo-400 font-bold mb-4">Carrinho</h1>
     <div v-if="cart?.listProduct.length === 0" class="text-sm text-gray-400 py-4 text-center">
       Seu carrinho está vazio.
     </div>
@@ -67,5 +66,12 @@ export default defineComponent({
     </div>
 
     <p class="text-base text-black font-bold pt-4">Total: {{ cart?.formatedTotal }}</p>
+
+    <RouterLink
+      to="/checkout"
+      class="w-full h-10 rounded-xl bg-indigo-600 text-white text-sm font-medium flex items-center justify-center hover:bg-indigo-500 transition-colors mt-4"
+    >
+      Finalizar compra
+    </RouterLink>
   </div>
 </template>

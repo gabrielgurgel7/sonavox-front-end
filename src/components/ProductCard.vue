@@ -62,7 +62,7 @@ export default defineComponent({
         <!-- Botão comprar -->
         <PrimeButton
           unstyled
-          class="h-9 rounded-xl bg-indigo-400 text-white text-sm font-medium cursor-pointer hover:bg-indigo-300 transition-colors"
+          class="h-9 rounded-xl bg-indigo-600 text-white text-sm font-medium cursor-pointer hover:bg-indigo-500 transition-colors"
           @click="$emit('add-to-cart', product)"
         >
           <template #default>Comprar</template>

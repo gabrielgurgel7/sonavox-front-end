@@ -37,7 +37,7 @@ export default defineComponent({
           unstyled
           class="h-9 w-9 rounded-full bg-transparent flex items-center justify-center text-sm text-black hover:bg-indigo-50 transition-colors flex-shrink-0"
         >
-          <MenuIcon class="text-indigo-400" />
+          <MenuIcon class="text-indigo-600" />
         </PrimeButton>
       </slot>
 
@@ -55,10 +55,10 @@ export default defineComponent({
 
       <div class="flex items-center gap-4">
         <slot name="actions">
-          <RouterLink class="text-black hover:text-indigo-400 transition-colors" to="/sobre"
+          <RouterLink class="text-black hover:text-indigo-600 transition-colors" to="/sobre"
             >Sobre</RouterLink
           >
-          <RouterLink class="text-black hover:text-indigo-400 transition-colors" to="/faqs"
+          <RouterLink class="text-black hover:text-indigo-600 transition-colors" to="/faqs"
             >FAQs</RouterLink
           >
           <PrimeButton
@@ -66,7 +66,7 @@ export default defineComponent({
             class="h-9 w-9 rounded-full bg-transparent flex items-center justify-center text-sm text-black cursor-pointer hover:bg-indigo-50 transition-colors flex-shrink-0"
             @click="cartOpen = true"
           >
-            <ShoppingBag class="text-indigo-400" />
+            <ShoppingBag class="text-indigo-600" />
           </PrimeButton>
         </slot>
       </div>
@@ -90,7 +90,7 @@ export default defineComponent({
                 unstyled
                 class="h-9 w-9 rounded-full bg-transparent flex items-center justify-center cursor-pointer hover:bg-indigo-50 transition-colors flex-shrink-0"
               >
-                <SearchIcon :size="20" class="text-indigo-400" />
+                <SearchIcon :size="20" class="text-indigo-600" />
               </PrimeButton>
             </slot>
           </div>
@@ -135,7 +135,7 @@ export default defineComponent({
       }"
     >
       <template #header>
-        <span></span>
+        <span class="text-2xl text-indigo-400 font-bold mb-4">Carrinho</span>
       </template>
       <CartSummary
         :cart="cart"
