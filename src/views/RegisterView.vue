@@ -6,8 +6,9 @@ import { msg } from "@/utils/messages";
 import { RegisterRest } from "@/services/rest/resgister.rest";
 import AppError from "@/components/AppError.vue";
 import { useAuthStore } from "@/stores/auth";
+import { Eye, EyeOff } from "@lucide/vue";
 export default defineComponent({
-  components: { AppError },
+  components: { AppError, Eye, EyeOff },
   data() {
     return {
       form: new RegisterForm(),

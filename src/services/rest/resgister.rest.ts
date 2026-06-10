@@ -1,4 +1,5 @@
 import { HttpClient, type IHttp } from "../config/config";
+
 export class RegisterRest {
   constructor(private httpClient: IHttp = new HttpClient()) {}
 

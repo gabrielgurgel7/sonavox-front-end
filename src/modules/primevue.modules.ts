@@ -1,7 +1,16 @@
 import type { App } from "vue";
 import PrimeVue from "primevue/config";
 import Lara from "@primeuix/themes/lara";
-import { Button, AutoComplete, Drawer, DataTable, Column, InputText, Password } from "primevue";
+import {
+  Button,
+  AutoComplete,
+  Drawer,
+  DataTable,
+  Column,
+  InputText,
+  Password,
+  Menu,
+} from "primevue";
 
 export function setPrimeVue(app: App): void {
   app.use(PrimeVue, {
@@ -18,4 +27,5 @@ export function setPrimeVue(app: App): void {
   app.component("PrimeColumn", Column);
   app.component("PrimeInputText", InputText);
   app.component("PrimePassword", Password);
+  app.component("PrimeMenu", Menu);
 }

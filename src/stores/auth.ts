@@ -4,7 +4,7 @@ import { User } from "@/models/user.model";
 export const useAuthStore = defineStore("auth", {
   state: () => {
     return {
-      user: new User(),
+      user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")!) : new User(),
       accessToken: localStorage.getItem("accessToken") as null | string,
       refreshToken: localStorage.getItem("refreshToken") as null | string,
     };
@@ -25,6 +25,7 @@ export const useAuthStore = defineStore("auth", {
   },
   actions: {
     setUser(user: User) {
+      localStorage.setItem("user", JSON.stringify(user));
       this.user = user;
     },
     setAccessToken(token: string) {
@@ -39,6 +40,8 @@ export const useAuthStore = defineStore("auth", {
       this.user = new User();
       this.accessToken = null;
       this.refreshToken = null;
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
     },
   },
 });

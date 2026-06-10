@@ -1,31 +1,37 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { Product } from "@/models/product.model";
-import { Cart } from "@/models/cart.model";
 import { MenuIcon, ShoppingBag, SearchIcon, X } from "@lucide/vue";
-import CartSummary from "@/components/CartSummary.vue"; // ← faltava isso
+import CartSummary from "@/components/CartSummary.vue";
+import { useAuthStore } from "@/stores/auth";
+import { useCartStore } from "@/stores/cart";
+import UserMenu from "@/components/usermenu/index.vue";
 
 export default defineComponent({
   data() {
     return {
       cartOpen: false,
-      cart: new Cart(),
     };
   },
+  setup() {
+    const authStore = useAuthStore();
+    const cartStore = useCartStore();
+    return { authStore, cartStore };
+  },
   methods: {
-    addOneItem(product: Product) {
+    incrementItem(product: Product) {
       console.log("addOneItem chamado:", product.name);
-      this.cart.addOneItem(product);
+      this.cartStore.incrementItem(product);
       this.cartOpen = true;
     },
-    removeOneItem(product: Product) {
-      this.cart.removeOneItem(product);
+    decrementItem(product: Product) {
+      this.cartStore.decrementItem(product);
     },
     removeItem(product: Product) {
-      this.cart.removeItem(product);
+      this.cartStore.removeItem(product);
     },
   },
-  components: { MenuIcon, ShoppingBag, SearchIcon, X, CartSummary },
+  components: { MenuIcon, ShoppingBag, SearchIcon, X, CartSummary, UserMenu },
 });
 </script>
 
@@ -55,19 +61,26 @@ export default defineComponent({
 
       <div class="flex items-center gap-4">
         <slot name="actions">
-          <RouterLink
-            class="text-gray-400 font-semibold hover:text-indigo-600 transition-colors"
-            to="/login"
-            ><small>Login</small></RouterLink
-          >
-          <span>
+          <!-- Se não estiver logado -->
+          <template v-if="!authStore.isAuth">
+            <RouterLink
+              class="text-gray-400 font-semibold hover:text-indigo-600 transition-colors"
+              to="/login"
+            >
+              <small>Login</small>
+            </RouterLink>
             <small><p class="text-gray-400 font-semibold">/</p></small>
-          </span>
-          <RouterLink
-            class="text-gray-400 font-semibold hover:text-indigo-600 transition-colors"
-            to="/register"
-            ><small>Registrar-se</small></RouterLink
-          >
+            <RouterLink
+              class="text-gray-400 font-semibold hover:text-indigo-600 transition-colors"
+              to="/register"
+            >
+              <small>Registrar-se</small>
+            </RouterLink>
+          </template>
+
+          <!-- Se estiver logado -->
+          <UserMenu v-else />
+
           <PrimeButton
             unstyled
             class="h-9 w-9 rounded-full bg-transparent flex items-center justify-center text-sm text-black cursor-pointer hover:bg-indigo-50 transition-colors flex-shrink-0"
@@ -129,7 +142,7 @@ export default defineComponent({
     </nav>
 
     <main class="flex-1 bg-neutral-50">
-      <RouterView @add-to-cart="addOneItem" />
+      <RouterView @add-to-cart="incrementItem" />
     </main>
 
     <!-- Drawer do carrinho -->
@@ -151,9 +164,9 @@ export default defineComponent({
         <X :size="18" class="text-indigo-400" />
       </template>
       <CartSummary
-        :cart="cart"
-        @add-to-cart="addOneItem"
-        @remove-to-cart="removeOneItem"
+        :cart="cartStore"
+        @add-to-cart="incrementItem"
+        @remove-to-cart="decrementItem"
         @remove-to-cart-total="removeItem"
       />
     </PrimeDrawer>

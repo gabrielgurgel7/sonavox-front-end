@@ -3,6 +3,7 @@ import { Product } from "./product.model.js";
 interface ListProduct {
   product: Product;
   quantity: number;
+  price: number;
 }
 
 export class Cart {
@@ -28,6 +29,7 @@ export class Cart {
       this.listProduct.push({
         product: product,
         quantity: 1,
+        price: 0,
       });
     }
   }

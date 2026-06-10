@@ -1,11 +1,14 @@
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
-import { Cart } from "@/models/cart.model";
+import { useCartStore } from "@/stores/cart";
 import { Plus, Minus, Trash } from "@lucide/vue";
+
+type CartStore = ReturnType<typeof useCartStore>;
+
 export default defineComponent({
   props: {
     cart: {
-      type: Object as PropType<Cart>,
+      type: Object as PropType<CartStore>,
     },
   },
   components: { Plus, Minus, Trash },
