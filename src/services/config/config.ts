@@ -9,19 +9,19 @@ export interface IHttp {
 
 export class HttpClient implements IHttp {
   async get(path: string, params?: unknown, baseURL?: string): Promise<unknown> {
-    return api.get(path, { params, baseURL }).then((res) => res.data);
+    return api.get(path, { params, baseURL }).then((res) => res.data.data);
   }
 
   async post(path: string, body: unknown, baseURL?: string): Promise<unknown> {
-    return api.post(path, body, { baseURL }).then((res) => res.data);
+    return api.post(path, body, { baseURL }).then((res) => res.data.data);
   }
 
   async put(path: string, body: unknown, baseURL?: string): Promise<unknown> {
-    return api.put(path, body, { baseURL }).then((res) => res.data);
+    return api.put(path, body, { baseURL }).then((res) => res.data.data);
   }
 
   async delete(path: string, params?: unknown, baseURL?: string): Promise<unknown> {
-    return api.delete(path, { params, baseURL }).then((res) => res.data);
+    return api.delete(path, { params, baseURL }).then((res) => res.data.data);
   }
 }
 

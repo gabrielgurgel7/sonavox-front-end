@@ -14,6 +14,7 @@ import CheckoutView from "@/views/CheckoutView.vue";
 
 // Guards
 import { authorizedGuard } from "./guards/authorized.guard";
+import HistoryView from "@/views/HistoryView.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -47,13 +48,25 @@ const router = createRouter({
           component: CheckoutView,
           meta: {
             auth: true,
+            role: ["CUSTOMER"],
+          },
+        },
+        {
+          path: "history",
+          component: HistoryView,
+          meta: {
+            auth: true,
+            role: ["CUSTOMER"],
           },
         },
       ],
     },
     {
       path: "/admin",
-      meta: { auth: true, role: "admin" },
+      meta: {
+        auth: true,
+        role: ["ADMIN"],
+      },
       component: AdminLayout,
       children: [
         {

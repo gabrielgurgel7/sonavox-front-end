@@ -5,6 +5,7 @@ import useVuelidate, { type Validation, type ValidationArgs } from "@vuelidate/c
 import { msg } from "@/utils/messages";
 import { RegisterRest } from "@/services/rest/resgister.rest";
 import AppError from "@/components/AppError.vue";
+import { useAuthStore } from "@/stores/auth";
 export default defineComponent({
   components: { AppError },
   data() {
@@ -18,8 +19,10 @@ export default defineComponent({
         "h-10 w-full px-3 rounded-xl border border-gray-200 text-sm text-gray-800 outline-none focus:border-indigo-400 transition-colors bg-white",
     };
   },
-  setup(): { v$: Validation<ValidationArgs, unknown> } {
+  setup(): { v$: Validation<ValidationArgs, unknown>; authStore: ReturnType<typeof useAuthStore> } {
+    const authStore = useAuthStore();
     return {
+      authStore,
       v$: useVuelidate() as unknown as Validation<ValidationArgs, unknown>,
     };
   },
@@ -62,8 +65,18 @@ export default defineComponent({
       };
       this.rest
         .registerUser(body)
-        .then((res) => {
-          console.log(res, "Resposta");
+        .then((res: any) => {
+          console.log(res, "res");
+          this.authStore.setUser(res.user);
+          this.authStore.setAccessToken(res.tokens.accessToken);
+          this.authStore.setRefreshToken(res.tokens.refreshToken);
+          console.log(this.authStore, "auth");
+          if (this.authStore.user.role === "CUSTOMER") {
+            this.$router.push({ path: "/history" });
+          }
+          if (this.authStore.user.role === "ADMIN") {
+            this.$router.push({ path: "/admin" });
+          }
         })
         .catch(() => {})
         .finally(() => {

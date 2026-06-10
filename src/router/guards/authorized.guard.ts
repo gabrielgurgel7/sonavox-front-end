@@ -1,20 +1,19 @@
-import type { Router, RouteLocationNormalized } from "vue-router";
+import type { Router } from "vue-router";
+import { useAuthStore } from "@/stores/auth";
 
 export function authorizedGuard(router: Router) {
-  router.beforeEach((to: RouteLocationNormalized) => {
-    if (to?.meta?.auth) {
-      const token = {
-        isAuth: false,
-        role: "customer",
-      };
+  router.beforeEach((to, from, next) => {
+    if (to.meta.auth) {
+      const authStore = useAuthStore();
 
-      if (!token.isAuth) {
-        return "/login";
+      if (!authStore.isAuth) {
+        next("/login");
       }
 
-      if (to.meta.role && to.meta.role !== token.role) {
-        return "/";
+      if (to.meta.role && !(to.meta.role as string[]).includes(authStore.getRole ?? "")) {
+        next("/");
       }
     }
+    next();
   });
 }
