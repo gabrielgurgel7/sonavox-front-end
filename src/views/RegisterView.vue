@@ -2,7 +2,7 @@
 import { defineComponent } from "vue";
 import RegisterForm from "@/models/register.model";
 import useVuelidate, { type Validation, type ValidationArgs } from "@vuelidate/core";
-import { email, maxLength, minLength, required, sameAs } from "@vuelidate/validators";
+import { msg } from "@/utils/messages";
 import { RegisterRest } from "@/services/rest/resgister.rest";
 import AppError from "@/components/AppError.vue";
 export default defineComponent({
@@ -12,6 +12,10 @@ export default defineComponent({
       form: new RegisterForm(),
       rest: new RegisterRest(),
       loading: false,
+      showPassword: false,
+      showConfirmPassword: false,
+      inputClass:
+        "h-10 w-full px-3 rounded-xl border border-gray-200 text-sm text-gray-800 outline-none focus:border-indigo-400 transition-colors bg-white",
     };
   },
   setup(): { v$: Validation<ValidationArgs, unknown> } {
@@ -22,14 +26,32 @@ export default defineComponent({
   validations() {
     return {
       form: {
-        name: { required, minLength: minLength(2), maxLength: maxLength(100) },
-        email: { required, email },
-        password: { required, minLength: minLength(8), maxLength: maxLength(72) },
-        confirmPassword: { required, sameAs: sameAs(this.form.password) },
+        name: {
+          required: msg.required("Nome"),
+          minLength: msg.minLength("Nome", 2),
+          maxLength: msg.maxLength("Nome", 100),
+        },
+        email: {
+          required: msg.required("E-mail"),
+          email: msg.email,
+        },
+        password: {
+          required: msg.required("Senha"),
+          minLength: msg.minLength("Senha", 8),
+          maxLength: msg.maxLength("Senha", 72),
+        },
+        confirmPassword: {
+          required: msg.required("Confirmação de senha"),
+          sameAs: msg.sameAs("As senhas não coincidem", this.form.password),
+        },
       },
     };
   },
   methods: {
+    // reset() {
+    //   this.form = new RegisterForm();
+    //   (this.v$ as unknown as Validation<ValidationArgs, unknown>).$reset();
+    // },
     register() {
       (this.v$ as unknown as Validation<ValidationArgs, unknown>).$validate();
       if ((this.v$ as unknown as Validation<ValidationArgs, unknown>).$invalid) return;
@@ -52,76 +74,110 @@ export default defineComponent({
 });
 </script>
 <template>
-  <main class="flex items-center justify-center w-screen h-screen bg-neutral-50">
+  <main class="flex items-center justify-center w-screen min-h-screen bg-neutral-50 px-4 py-8">
     <form
-      class="flex flex-col gap-4 w-1/2 p-8 rounded-3xl border border-gray-300"
+      class="flex flex-col gap-4 w-full max-w-md p-8 rounded-3xl border border-gray-200 bg-white shadow-sm"
       @submit.prevent="register"
     >
-      <header class="text-2xl text-indigo-400 font-bold">{{ "Faça seu registro" }}</header>
-      <label class="flex flex-col text-black gap-1">
-        Nome completo:
-        <PrimeInputText
-          v-model="form.name"
-          unstyled
-          :pt="{
-            root: 'h-9 w-full px-3 rounded-xl border border-gray-300 text-sm text-indigo-400 outline-none focus:border-indigo-400 transition-colors',
-          }"
-        />
-        <AppError :value="v$.form" field="name" />
-      </label>
-      <label class="flex flex-col text-black gap-1">
-        Email:
-        <PrimeInputText
-          v-model="form.email"
-          unstyled
-          :pt="{
-            root: 'h-9 w-full px-3 rounded-xl border border-gray-300 text-sm text-indigo-400 outline-none focus:border-indigo-400 transition-colors ',
-          }"
-        />
-        <AppError :value="v$.form" field="email" />
-      </label>
-      <label class="flex flex-col text-black gap-1">
-        Senha:
-        <PrimePassword
-          v-model="form.password"
-          :feedback="false"
-          toggleMask
-          unstyled
-          :pt="{
-            root: 'w-full flex items-center h-9 rounded-xl border border-gray-300  text-indigo-400 overflow-hidden focus-within:border-indigo-400 transition-colors',
-            input: 'flex-1 h-full px-3 text-sm  outline-none bg-transparent text-black',
-          }"
-        />
-        <AppError :value="v$.form" field="password" />
-      </label>
-      <label class="flex flex-col text-black gap-1">
-        Confirme sua senha:
-        <PrimePassword
-          v-model="form.confirmPassword"
-          unstyled
-          :feedback="false"
-          toggleMask
-          :pt="{
-            root: 'w-full flex items-center h-9 rounded-xl border border-gray-300  text-indigo-400 overflow-hidden focus-within:border-indigo-400 transition-colors',
-            input: 'flex-1 h-full px-3 text-sm  outline-none bg-transparent text-black',
-          }"
-        />
-        <AppError :value="v$.form" field="confirmPassword" />
-      </label>
-      <div class="flex flex-row w-full gap-2">
+      <div>
+        <h1 class="text-2xl font-medium text-indigo-600 m-0">Crie sua conta</h1>
+        <p class="text-sm text-gray-400 mt-1">Preencha os dados abaixo para se registrar</p>
+      </div>
+
+      <div>
+        <div class="flex flex-col gap-1.5">
+          <label class="text-sm font-medium text-gray-600">Nome completo</label>
+          <PrimeInputText
+            v-model="form.name"
+            unstyled
+            :pt="{ root: inputClass }"
+            placeholder="Gabriel Gurgel"
+          />
+          <AppError :field="v$.form.name" />
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <label class="text-sm font-medium text-gray-600">E-mail</label>
+          <PrimeInputText
+            v-model="form.email"
+            unstyled
+            :pt="{ root: inputClass }"
+            placeholder="gabriel@exemplo.com"
+          />
+          <AppError :field="v$.form.email" />
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <label class="text-sm font-medium text-gray-600">Senha</label>
+          <div class="relative w-full">
+            <input
+              v-model="form.password"
+              :type="showPassword ? 'text' : 'password'"
+              class="h-10 w-full px-3 pr-10 rounded-xl border border-gray-200 text-sm text-gray-800 outline-none focus:border-indigo-400 transition-colors bg-white"
+              placeholder="Mínimo 8 caracteres"
+            />
+            <button
+              type="button"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 border-none bg-transparent cursor-pointer"
+              @click="showPassword = !showPassword"
+            >
+              <EyeOff v-if="showPassword" :size="16" />
+              <Eye v-else :size="16" />
+            </button>
+          </div>
+          <AppError :field="v$.form.password" />
+        </div>
+
+        <div class="flex flex-col gap-1.5">
+          <label class="text-sm font-medium text-gray-600">Confirmar senha</label>
+          <div class="relative w-full">
+            <input
+              v-model="form.confirmPassword"
+              :type="showConfirmPassword ? 'text' : 'password'"
+              class="h-10 w-full px-3 pr-10 rounded-xl border border-gray-200 text-sm text-gray-800 outline-none focus:border-indigo-400 transition-colors bg-white"
+              placeholder="Repita a senha"
+            />
+            <button
+              type="button"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 border-none bg-transparent cursor-pointer"
+              @click="showConfirmPassword = !showConfirmPassword"
+            >
+              <EyeOff v-if="showConfirmPassword" :size="16" />
+              <Eye v-else :size="16" />
+            </button>
+          </div>
+          <AppError :field="v$.form.confirmPassword" />
+        </div>
+      </div>
+
+      <div class="flex gap-2 mt-1">
+        <RouterLink
+          to="/"
+          class="flex-1 h-10 rounded-xl border border-gray-200 text-sm text-gray-700 cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-center"
+        >
+          Cancelar
+        </RouterLink>
         <PrimeButton
           unstyled
-          class="w-full h-9 rounded-xl border border-gray-300 bg-transparent text-sm text-black cursor-pointer hover:bg-indigo-50 transition-colors"
-          :label="'Cancelar'"
-        />
-        <PrimeButton
-          unstyled
-          class="w-full h-9 rounded-xl bg-indigo-600 text-white text-sm font-medium cursor-pointer hover:bg-indigo-500 transition-colors"
+          class="flex-1 h-10 rounded-xl bg-indigo-600 text-white text-sm font-medium cursor-pointer hover:bg-indigo-500 transition-colors"
           type="submit"
           :label="'Registrar'"
           :loading="loading"
         />
       </div>
+
+      <div class="flex items-center gap-2">
+        <div class="flex-1 h-px bg-gray-100"></div>
+        <span class="text-xs text-gray-400">ou</span>
+        <div class="flex-1 h-px bg-gray-100"></div>
+      </div>
+
+      <p class="text-center text-sm text-gray-500 m-0">
+        Já tem uma conta?
+        <RouterLink to="/login" class="text-indigo-500 font-medium hover:text-indigo-600"
+          >Faça login</RouterLink
+        >
+      </p>
     </form>
   </main>
 </template>

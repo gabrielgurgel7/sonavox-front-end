@@ -55,11 +55,18 @@ export default defineComponent({
 
       <div class="flex items-center gap-4">
         <slot name="actions">
-          <RouterLink class="text-black hover:text-indigo-600 transition-colors" to="/sobre"
-            >Sobre</RouterLink
+          <RouterLink
+            class="text-gray-400 font-semibold hover:text-indigo-600 transition-colors"
+            to="/login"
+            ><small>Login</small></RouterLink
           >
-          <RouterLink class="text-black hover:text-indigo-600 transition-colors" to="/faqs"
-            >FAQs</RouterLink
+          <span>
+            <small><p class="text-gray-400 font-semibold">/</p></small>
+          </span>
+          <RouterLink
+            class="text-gray-400 font-semibold hover:text-indigo-600 transition-colors"
+            to="/register"
+            ><small>Registrar-se</small></RouterLink
           >
           <PrimeButton
             unstyled

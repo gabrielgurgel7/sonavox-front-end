@@ -1,21 +1,18 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-
 export default defineComponent({
   props: {
-    value: {
-      type: Object,
-    },
     field: {
-      type: String,
+      type: Object,
     },
   },
 });
 </script>
+
 <template>
-  <span v-if="value?.[field!]?.$errors?.length > 0">
-    <p v-for="error in value?.[field!]?.$errors" :key="error.$uid">
-      {{ error.$message }}
+  <div class="h-5">
+    <p v-if="field?.$errors?.length > 0" class="text-xs text-red-500">
+      {{ field?.$errors[0]?.$message }}
     </p>
-  </span>
+  </div>
 </template>
