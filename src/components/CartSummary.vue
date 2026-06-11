@@ -45,7 +45,7 @@ export default defineComponent({
           <!-- Controles de quantidade -->
           <div class="flex items-center gap-2 bg-indigo-50 dark:bg-gray-800 rounded-full h-6">
             <button
-              class="h-6 w-6 flex items-center justify-center rounded-full text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-700 hover:bg-green-200 dark:hover:bg-green-900 transition-colors cursor-pointer border-none flex-shrink-0"
+              class="h-6 w-6 flex items-center justify-center rounded-full text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-700 hover:bg-green-200 dark:hover:bg-green-900 transition-colors cursor-pointer border-none shrink-0"
               @click="$emit('add-to-cart', item.product)"
             >
               <Plus :size="20" />
@@ -54,7 +54,7 @@ export default defineComponent({
               {{ item.quantity }}
             </span>
             <button
-              class="h-6 w-6 flex items-center justify-center rounded-full text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-700 hover:bg-orange-200 dark:hover:bg-orange-900 transition-colors cursor-pointer border-none flex-shrink-0"
+              class="h-6 w-6 flex items-center justify-center rounded-full text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-700 hover:bg-orange-200 dark:hover:bg-orange-900 transition-colors cursor-pointer border-none shrink-0"
               @click="$emit('remove-to-cart', item.product)"
             >
               <Minus :size="20" />
@@ -63,7 +63,7 @@ export default defineComponent({
 
           <!-- Botão remover total -->
           <button
-            class="h-6 w-6 flex items-center justify-center rounded-full bg-transparent cursor-pointer border-none flex-shrink-0"
+            class="h-6 w-6 flex items-center justify-center rounded-full bg-transparent cursor-pointer border-none shrink-0"
             @click="$emit('remove-to-cart-total', item.product)"
           >
             <Trash :size="20" class="text-red-400" />

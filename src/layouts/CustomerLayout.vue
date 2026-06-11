@@ -6,6 +6,7 @@ import CartSummary from "@/components/CartSummary.vue";
 import { useAuthStore } from "@/stores/auth";
 import { useCartStore } from "@/stores/cart";
 import UserMenu from "@/components/usermenu/AppUserMenu.vue";
+import PromoSpam from "@/components/PromoSpam.vue";
 
 export default defineComponent({
   data() {
@@ -28,19 +29,19 @@ export default defineComponent({
       this.cartStore.removeItem(product);
     },
   },
-  components: { MenuIcon, ShoppingBag, SearchIcon, X, CartSummary, UserMenu },
+  components: { MenuIcon, ShoppingBag, SearchIcon, X, CartSummary, UserMenu, PromoSpam },
 });
 </script>
 
 <template>
-  <div class="flex flex-col min-h-screen bg-neutral-50 dark:bg-gray-950">
+  <div class="flex flex-col min-h-screen bg-neutral-50 dark:bg-gray-950 overflow-clip">
     <header
       class="relative h-20 flex flex-row items-center justify-between px-12 bg-neutral-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800"
     >
       <slot name="menu-sanduich">
         <PrimeButton
           unstyled
-          class="h-9 w-9 rounded-full bg-transparent flex items-center justify-center text-sm text-black dark:text-white hover:bg-indigo-50 dark:hover:bg-gray-800 transition-colors flex-shrink-0"
+          class="h-9 w-9 rounded-full bg-transparent flex items-center justify-center text-sm text-black dark:text-white hover:bg-indigo-50 dark:hover:bg-gray-800 transition-colors shrink-0"
         >
           <MenuIcon class="text-indigo-600" />
         </PrimeButton>
@@ -81,7 +82,7 @@ export default defineComponent({
 
           <PrimeButton
             unstyled
-            class="h-9 w-9 rounded-full bg-transparent flex items-center justify-center text-sm text-black dark:text-white cursor-pointer hover:bg-indigo-50 dark:hover:bg-gray-800 transition-colors flex-shrink-0"
+            class="h-9 w-9 rounded-full bg-transparent flex items-center justify-center text-sm text-black dark:text-white cursor-pointer hover:bg-indigo-50 dark:hover:bg-gray-800 transition-colors shrink-0"
             @click="cartStore.cartOpen = true"
           >
             <ShoppingBag class="text-indigo-600" />
@@ -90,7 +91,7 @@ export default defineComponent({
       </div>
     </header>
 
-    <nav class="bg-neutral-50 dark:bg-gray-900">
+    <nav class="p-2 bg-neutral-50 dark:bg-gray-900">
       <slot name="nav">
         <div class="flex items-center justify-between gap-4 px-12">
           <div
@@ -106,32 +107,36 @@ export default defineComponent({
               />
               <PrimeButton
                 unstyled
-                class="h-9 w-9 rounded-full bg-transparent flex items-center justify-center cursor-pointer hover:bg-indigo-50 dark:hover:bg-gray-800 transition-colors flex-shrink-0"
+                class="h-9 w-9 rounded-full bg-transparent flex items-center justify-center cursor-pointer hover:bg-indigo-50 dark:hover:bg-gray-800 transition-colors shrink-0"
               >
                 <SearchIcon :size="20" class="text-indigo-600" />
               </PrimeButton>
             </slot>
           </div>
 
+          <div class="flex-1 px-4">
+            <PromoSpam />
+          </div>
+
           <div class="flex flex-row gap-1">
             <RouterLink
               to="/products?category=instrumentos"
-              class="h-9 rounded-full border border-gray-300 dark:border-gray-700 bg-transparent text-sm text-black dark:text-white px-4 flex items-center hover:bg-indigo-50 dark:hover:bg-gray-800 transition-colors"
+              class="h-9 rounded-full border border-gray-300 dark:border-gray-700 bg-transparent text-sm text-black dark:text-white px-4 flex items-center hover:bg-indigo-50 dark:hover:bg-indigo-950 transition-colors"
               >Instrumentos</RouterLink
             >
             <RouterLink
               to="/products?category=acessorios"
-              class="h-9 rounded-full border border-gray-300 dark:border-gray-700 bg-transparent text-sm text-black dark:text-white px-4 flex items-center hover:bg-indigo-50 dark:hover:bg-gray-800 transition-colors"
+              class="h-9 rounded-full border border-gray-300 dark:border-gray-700 bg-transparent text-sm text-black dark:text-white px-4 flex items-center hover:bg-indigo-50 dark:hover:bg-indigo-950 transition-colors"
               >Acessórios</RouterLink
             >
             <RouterLink
               to="/products?category=encordoamentos"
-              class="h-9 rounded-full border border-gray-300 dark:border-gray-700 bg-transparent text-sm text-black dark:text-white px-4 flex items-center hover:bg-indigo-50 dark:hover:bg-gray-800 transition-colors"
+              class="h-9 rounded-full border border-gray-300 dark:border-gray-700 bg-transparent text-sm text-black dark:text-white px-4 flex items-center hover:bg-indigo-50 dark:hover:bg-indigo-950 transition-colors"
               >Encordoamentos</RouterLink
             >
             <RouterLink
               to="/products?category=audio"
-              class="h-9 rounded-full border border-gray-300 dark:border-gray-700 bg-transparent text-sm text-black dark:text-white px-4 flex items-center hover:bg-indigo-50 dark:hover:bg-gray-800 transition-colors"
+              class="h-9 rounded-full border border-gray-300 dark:border-gray-700 bg-transparent text-sm text-black dark:text-white px-4 flex items-center hover:bg-indigo-50 dark:hover:bg-indigo-950 transition-colors"
               >Áudio</RouterLink
             >
           </div>

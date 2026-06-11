@@ -8,6 +8,7 @@ import {
   AutoComplete,
   Button,
   Card,
+  Carousel,
   Column,
   DataTable,
   Drawer,
@@ -29,6 +30,7 @@ export function setPrimeVue(app: App): void {
   app.component("PrimeAutoComplete", AutoComplete);
   app.component("PrimeButton", Button);
   app.component("PrimeCard", Card);
+  app.component("PrimeCarousel", Carousel);
   app.component("PrimeColumn", Column);
   app.component("PrimeDataTable", DataTable);
   app.component("PrimeDrawer", Drawer);

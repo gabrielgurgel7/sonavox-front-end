@@ -27,7 +27,9 @@ export default defineComponent({
 </script>
 
 <template>
-  <article class="flex flex-col w-full border border-gray-300 rounded-3xl overflow-hidden">
+  <article
+    class="flex flex-col w-full border border-gray-300 dark:border-gray-700 rounded-3xl overflow-hidden"
+  >
     <!-- Imagem do produto -->
     <figure class="m-0" @click="$emit('view-product', product)">
       <img class="w-full aspect-square object-cover" :src="mainImage" :alt="product?.name" />
@@ -80,7 +82,7 @@ export default defineComponent({
         <!-- Botão add ao carrinho -->
         <PrimeButton
           unstyled
-          class="h-9 rounded-xl border border-gray-300 bg-transparent text-sm text-black dark:text-white cursor-pointer hover:bg-indigo-50 transition-colors"
+          class="h-9 rounded-xl border border-gray-300 dark:border-gray-700 bg-transparent text-sm text-black dark:text-white cursor-pointer hover:bg-indigo-50 dark:hover:bg-indigo-950 transition-colors"
           @click="cartStore.incrementItem(product!)"
         >
           <template #default>Adicionar ao carrinho</template>

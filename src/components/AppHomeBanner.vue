@@ -8,7 +8,7 @@
         alt="Banner MusiCommerce"
       />
       <header
-        class="absolute flex flex-col gap-4 text-center inset-0 z-20 flex items-center justify-center"
+        class="absolute flex flex-col gap-4 text-center inset-0 z-20 items-center justify-center"
       >
         <h1 class="text-neutral-50 text-5xl font-bold">Seu som. Sua identidade.</h1>
         <p class="w-150 text-neutral-200">
