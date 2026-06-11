@@ -1,4 +1,6 @@
 import type { Image } from "./image.model";
+import { Image as ImageModel } from "./image.model";
+import type { IProductResponse } from "@/types/api.types";
 
 export enum Shipment {
   FREE = "Grátis",
@@ -26,6 +28,30 @@ export class Product {
     public stripeProductId: string,
     public updatedAt: string,
   ) {}
+
+  static fromResponse(product: IProductResponse): Product {
+    return new Product(
+      product.categoryId,
+      product.compareAtPrice,
+      product.createdAt,
+      product.description,
+      product.discount ?? 0,
+      product.id,
+      product.images.map(
+        (img) => new ImageModel(img.id, img.url, img.publicId ?? "", img.isMain ?? true),
+      ),
+      product.isActive,
+      product.name,
+      product.price,
+      product.shipment ?? "Correios",
+      product.sku,
+      product.slug,
+      product.stock,
+      product.stripePriceId ?? "",
+      product.stripeProductId ?? "",
+      product.updatedAt,
+    );
+  }
 
   displayDiscount(): number {
     return Math.round(this.discount * 100);

@@ -7,6 +7,7 @@ import { useAuthStore } from "@/stores/auth";
 import { useCartStore } from "@/stores/cart";
 import UserMenu from "@/components/usermenu/AppUserMenu.vue";
 import PromoSpam from "@/components/PromoSpam.vue";
+import AppFooter from "@/components/AppFooter.vue";
 
 export default defineComponent({
   data() {
@@ -29,7 +30,7 @@ export default defineComponent({
       this.cartStore.removeItem(product);
     },
   },
-  components: { MenuIcon, ShoppingBag, SearchIcon, X, CartSummary, UserMenu, PromoSpam },
+  components: { MenuIcon, ShoppingBag, SearchIcon, X, CartSummary, UserMenu, PromoSpam, AppFooter },
 });
 </script>
 
@@ -173,5 +174,7 @@ export default defineComponent({
         @remove-to-cart-total="removeItem"
       />
     </PrimeDrawer>
+
+    <AppFooter />
   </div>
 </template>

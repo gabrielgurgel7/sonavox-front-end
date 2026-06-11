@@ -4,8 +4,6 @@ import { Product } from "@/models/product.model";
 import { QueryParams } from "@/models/queryParams";
 import { ProductRest } from "@/services/rest/product.rest";
 import { defineComponent } from "vue";
-import type { IApiList, IProductResponse } from "@/types/api.types";
-import { Image } from "@/models/image.model";
 export default defineComponent({
   data() {
     return {
@@ -21,33 +19,7 @@ export default defineComponent({
       this.rest
         .getAll(this.params)
         .then((res) => {
-          const data: IApiList<IProductResponse> = res.data;
-          this.products = data.data.map(
-            (product: IProductResponse) =>
-              new Product(
-                product.categoryId,
-                product.compareAtPrice,
-                product.createdAt,
-                product.description,
-                product.discount ?? 0,
-                product.id,
-                product.images.map(
-                  (img) => new Image(img.id, img.url, img.publicId ?? "", img.isMain ?? true),
-                ),
-                product.isActive,
-                product.name,
-                product.price,
-                product.shipment ?? "Correios",
-                product.sku,
-                product.slug,
-                product.stock,
-                product.stripePriceId ?? "",
-                product.stripeProductId ?? "",
-                product.updatedAt,
-              ),
-          );
-          this.params.page = data.page;
-          this.params.limit = data.limit;
+          this.products = res.data.map(Product.fromResponse);
         })
         .finally(() => (this.loading.products = false));
     },
