@@ -1,22 +1,14 @@
-import productsData from "@/data/productsData.json";
-import { Image } from "@/models/image.model";
-
-// export class ProductRest {
-//   getAll(params: unknown) {
-//     const path = "/products";
-//     return httpClient.get(path, params);
-//   }
-// }
+import { HttpClient, type IHttp } from "../config/config";
+import type { IProductResponse } from "@/types/api.types";
 
 export class ProductRest {
-  getAll(_params: unknown): Promise<unknown> {
-    return Promise.resolve({
-      data: {
-        data: productsData.map((p) => ({
-          ...p,
-          images: p.images.map((url: string) => new Image(crypto.randomUUID(), url, "", true)),
-        })), // ← fechamento do productsData.map
-      },
-    });
+  constructor(private httpClient: IHttp = new HttpClient()) {}
+
+  getAll(_params: unknown): Promise<{ data: IProductResponse[] }> {
+    return this.httpClient.get("/products") as Promise<{ data: IProductResponse[] }>;
+  }
+
+  getById(id: string): Promise<{ data: IProductResponse }> {
+    return this.httpClient.get(`/products/${id}`) as Promise<{ data: IProductResponse }>;
   }
 }

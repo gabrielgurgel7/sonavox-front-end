@@ -79,7 +79,7 @@ export default defineComponent({
 
         this.rest
           .registerUser(body)
-          .then((res: any) => {
+          .then((res) => {
             this.authStore.setUser(res.user);
             this.authStore.setAccessToken(res.tokens.accessToken);
             this.authStore.setRefreshToken(res.tokens.refreshToken);
@@ -93,7 +93,7 @@ export default defineComponent({
 
             this.$router.push("/");
           })
-          .catch((err: any) => {
+          .catch((err: { response?: { status: number } }) => {
             const message =
               err.response?.status === 409 ? "E-mail já cadastrado" : "Erro ao criar conta";
 
@@ -113,7 +113,7 @@ export default defineComponent({
 });
 </script>
 <template>
-  <main class="flex items-center justify-center w-screen min-h-screen bg-neutral-50 px-4 py-8">
+  <main class="flex items-center justify-center w-screen min-h-screen px-4 py-8">
     <PrimeCard
       unstyled
       :pt="{

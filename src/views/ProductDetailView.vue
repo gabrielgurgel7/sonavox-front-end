@@ -1,43 +1,46 @@
 <script lang="ts">
 import { Product } from "@/models/product.model";
+import { Image } from "@/models/image.model";
+import { ProductRest } from "@/services/rest/product.rest";
 import { defineComponent } from "vue";
-import productsData from "@/data/productsData.json";
 import ProductCard from "@/components/ProductCard.vue";
+import type { IProductResponse, IImage } from "@/types/api.types";
 
 export default defineComponent({
+  components: { ProductCard },
   data() {
     return {
       productId: null as Product | null,
+      rest: new ProductRest(),
     };
   },
-  components: { ProductCard },
   methods: {
     getProduct() {
-      const id = Number(this.$route.params.id);
-      console.log("id da rota:", id);
-      const found = productsData.find((p) => p.id === id);
-      console.log("produto encontrado:", found);
-      if (!found) return;
-
-      this.productId = new Product(
-        found.categoryId,
-        found.compareAtPrice,
-        found.createdAt,
-        found.description,
-        found.discount,
-        found.id,
-        found.images,
-        found.isActive,
-        found.name,
-        found.price,
-        found.shipment,
-        found.sku,
-        found.slug,
-        found.stock,
-        found.stripePriceId,
-        found.stripeProductId,
-        found.updatedAt,
-      );
+      const id = this.$route.params.id as string;
+      this.rest.getById(id).then((res) => {
+        const p: IProductResponse = res.data;
+        this.productId = new Product(
+          p.categoryId,
+          p.compareAtPrice,
+          p.createdAt,
+          p.description,
+          p.discount ?? 0,
+          p.id,
+          p.images.map(
+            (img: IImage) => new Image(img.id, img.url, img.publicId ?? "", img.isMain ?? true),
+          ),
+          p.isActive,
+          p.name,
+          p.price,
+          p.shipment ?? "Correios",
+          p.sku,
+          p.slug,
+          p.stock,
+          p.stripePriceId ?? "",
+          p.stripeProductId ?? "",
+          p.updatedAt,
+        );
+      });
     },
   },
   mounted() {
@@ -45,6 +48,7 @@ export default defineComponent({
   },
 });
 </script>
+
 <template>
   <div v-if="productId">
     <ProductCard :product="productId" />

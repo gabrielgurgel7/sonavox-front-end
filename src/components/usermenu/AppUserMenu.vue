@@ -1,11 +1,20 @@
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
-import { ChevronDown, Settings, LogOut } from "@lucide/vue";
+import { ChevronDown, Settings, LogOut, UserStar, Moon, Sun } from "@lucide/vue";
+
+const isDark = ref(document.documentElement.classList.contains("dark"));
+
+const toggleDark = () => {
+  isDark.value = !isDark.value;
+  document.documentElement.classList.toggle("dark");
+  localStorage.setItem("theme", isDark.value ? "dark" : "light");
+  // console.log("dark?", document.documentElement.classList.contains("dark"));
+};
 
 export default defineComponent({
-  components: { ChevronDown, Settings, LogOut },
+  components: { ChevronDown, Settings, LogOut, UserStar, Moon, Sun },
   setup() {
     const authStore = useAuthStore();
     const menu = ref();
@@ -15,10 +24,19 @@ export default defineComponent({
       menu.value.toggle(event);
     };
 
-    const items = [
+    const allItems = [
+      {
+        label: "Admin",
+        role: "ADMIN",
+        command: () => router.push("/admin"),
+      },
       {
         label: "Configurações",
         command: () => {},
+      },
+      {
+        label: "toggle-theme", // identificador especial
+        command: toggleDark,
       },
       {
         label: "Sair",
@@ -29,7 +47,11 @@ export default defineComponent({
       },
     ];
 
-    return { authStore, menu, toggle, items };
+    const items = computed(() =>
+      allItems.filter((item) => !item.role || item.role === authStore.getRole),
+    );
+
+    return { authStore, menu, toggle, items, isDark, toggleDark };
   },
 });
 </script>
@@ -40,8 +62,10 @@ export default defineComponent({
       class="flex items-center gap-2 cursor-pointer border-none bg-transparent"
       @click="toggle"
     >
-      <span class="text-sm font-medium text-gray-700">Olá, {{ authStore.getUser?.name }}</span>
-      <ChevronDown :size="14" class="text-gray-400" />
+      <span class="text-sm font-medium text-gray-700 dark:text-gray-200">
+        Olá, {{ authStore.getUser?.name }}
+      </span>
+      <ChevronDown :size="14" class="text-gray-400 dark:text-gray-500" />
     </button>
 
     <PrimeMenu
@@ -50,7 +74,7 @@ export default defineComponent({
       popup
       unstyled
       :pt="{
-        root: 'bg-white border border-gray-200 rounded-xl shadow-sm py-1 min-w-[160px]',
+        root: 'bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm py-1 min-w-[160px]',
         list: 'flex flex-col',
         item: 'px-1',
         itemContent: 'w-full',
@@ -59,11 +83,37 @@ export default defineComponent({
       <template #item="{ item, props }">
         <a
           v-bind="props.action"
-          class="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-indigo-50 rounded-lg cursor-pointer transition-colors"
+          class="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-indigo-50 dark:hover:bg-gray-800 rounded-lg cursor-pointer transition-colors"
         >
-          <Settings v-if="item.label === 'Configurações'" :size="14" class="text-gray-400" />
-          <LogOut v-if="item.label === 'Sair'" :size="14" class="text-gray-400" />
-          {{ item.label }}
+          <UserStar
+            v-if="item.label === 'Admin'"
+            :size="14"
+            class="text-gray-400 dark:text-gray-500"
+          />
+          <Settings
+            v-if="item.label === 'Configurações'"
+            :size="14"
+            class="text-gray-400 dark:text-gray-500"
+          />
+          <Moon
+            v-if="item.label === 'toggle-theme' && isDark"
+            :size="14"
+            class="text-gray-400 dark:text-gray-500"
+          />
+          <Sun
+            v-if="item.label === 'toggle-theme' && !isDark"
+            :size="14"
+            class="text-gray-400 dark:text-gray-500"
+          />
+          <LogOut
+            v-if="item.label === 'Sair'"
+            :size="14"
+            class="text-gray-400 dark:text-gray-500"
+          />
+          <span v-if="item.label === 'toggle-theme'">
+            {{ isDark ? "Modo escuro" : "Modo claro" }}
+          </span>
+          <span v-else>{{ item.label }}</span>
         </a>
       </template>
     </PrimeMenu>

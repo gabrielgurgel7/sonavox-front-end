@@ -21,7 +21,7 @@ export function setPrimeVue(app: App): void {
   app.use(PrimeVue, {
     theme: {
       preset: Lara,
-      darkModeSelector: false,
+      darkModeSelector: ".dark",
     },
   });
   app.use(ToastService);

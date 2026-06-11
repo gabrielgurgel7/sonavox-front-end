@@ -36,11 +36,11 @@ export default defineComponent({
     <!-- Corpo do card -->
     <section class="flex flex-col gap-1 p-3 flex-1">
       <slot name="header">
-        <h3 class="text-sm font-medium m-0 text-black">{{ product?.name }}</h3>
+        <h3 class="text-sm font-medium m-0 text-black dark:text-white">{{ product?.name }}</h3>
       </slot>
 
       <slot name="price">
-        <strong class="text-base text-black font-semibold mt-1">{{
+        <strong class="text-base text-black dark:text-white font-semibold mt-1">{{
           product?.formatedPrice
         }}</strong>
       </slot>
@@ -80,7 +80,7 @@ export default defineComponent({
         <!-- Botão add ao carrinho -->
         <PrimeButton
           unstyled
-          class="h-9 rounded-xl border border-gray-300 bg-transparent text-sm text-black cursor-pointer hover:bg-indigo-50 transition-colors"
+          class="h-9 rounded-xl border border-gray-300 bg-transparent text-sm text-black dark:text-white cursor-pointer hover:bg-indigo-50 transition-colors"
           @click="cartStore.incrementItem(product!)"
         >
           <template #default>Adicionar ao carrinho</template>

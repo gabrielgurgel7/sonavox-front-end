@@ -55,27 +55,19 @@ export default defineComponent({
   },
   methods: {
     login() {
-      console.log("form:", this.form);
       (this.v$ as unknown as Validation<ValidationArgs, unknown>).$validate();
-      console.log(
-        "inválido?",
-        (this.v$ as unknown as Validation<ValidationArgs, unknown>).$invalid,
-      );
-      console.log("erros:", (this.v$ as unknown as Validation<ValidationArgs, unknown>).$errors);
       if ((this.v$ as unknown as Validation<ValidationArgs, unknown>).$invalid) return;
-      console.log("3. passou validação");
+
       this.loading = true;
 
       setTimeout(() => {
-        console.log("4. dentro do setTimeout");
         this.rest
           .loginUser({ email: this.form.email, password: this.form.password })
-          .then((res: any) => {
-            console.log("resposta completa:", res);
+          .then((res) => {
             this.authStore.setUser(res.user);
             this.authStore.setAccessToken(res.tokens.accessToken);
             this.authStore.setRefreshToken(res.tokens.refreshToken);
-            console.log("chamando toast");
+
             this.toast.add({
               severity: "success",
               summary: "Login realizado!",
@@ -86,8 +78,7 @@ export default defineComponent({
             const redirect = this.$route.query.redirect as string;
             this.$router.push(redirect ?? "/");
           })
-          .catch((err) => {
-            console.log("6. catch executado", err);
+          .catch(() => {
             this.toast.add({
               severity: "error",
               summary: "Erro",
@@ -105,7 +96,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <main class="flex items-center justify-center w-screen min-h-screen bg-neutral-50 px-4 py-8">
+  <main class="flex items-center justify-center w-screen min-h-screen px-4 py-8">
     <PrimeCard
       unstyled
       :pt="{
