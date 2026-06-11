@@ -1,5 +1,6 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
 import { ChevronDown, Settings, LogOut } from "@lucide/vue";
 
@@ -8,24 +9,27 @@ export default defineComponent({
   setup() {
     const authStore = useAuthStore();
     const menu = ref();
+    const router = useRouter();
+
     const toggle = (event: Event) => {
       menu.value.toggle(event);
     };
-    return { authStore, menu, toggle };
-  },
-  data() {
-    return {
-      items: [
-        {
-          label: "Configurações",
-          command: () => {},
+
+    const items = [
+      {
+        label: "Configurações",
+        command: () => {},
+      },
+      {
+        label: "Sair",
+        command: () => {
+          authStore.logout();
+          router.push("/login");
         },
-        {
-          label: "Sair",
-          command: () => {},
-        },
-      ],
-    };
+      },
+    ];
+
+    return { authStore, menu, toggle, items };
   },
 });
 </script>

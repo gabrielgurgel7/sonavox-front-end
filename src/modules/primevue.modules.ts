@@ -1,6 +1,7 @@
 import type { App } from "vue";
 import PrimeVue from "primevue/config";
 import Lara from "@primeuix/themes/lara";
+import ToastService from "primevue/toastservice";
 import {
   Button,
   AutoComplete,
@@ -10,6 +11,7 @@ import {
   InputText,
   Password,
   Menu,
+  Toast,
 } from "primevue";
 
 export function setPrimeVue(app: App): void {
@@ -20,6 +22,8 @@ export function setPrimeVue(app: App): void {
     },
   });
 
+  app.use(ToastService);
+
   app.component("PrimeButton", Button);
   app.component("PrimeAutoComplete", AutoComplete);
   app.component("PrimeDrawer", Drawer);
@@ -28,4 +32,5 @@ export function setPrimeVue(app: App): void {
   app.component("PrimeInputText", InputText);
   app.component("PrimePassword", Password);
   app.component("PrimeMenu", Menu);
+  app.component("PrimeToast", Toast);
 }

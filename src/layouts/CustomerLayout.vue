@@ -142,7 +142,7 @@ export default defineComponent({
     </nav>
 
     <main class="flex-1 bg-neutral-50">
-      <RouterView @add-to-cart="incrementItem" />
+      <RouterView />
     </main>
 
     <!-- Drawer do carrinho -->

@@ -7,6 +7,8 @@ import { RegisterRest } from "@/services/rest/resgister.rest";
 import AppError from "@/components/AppError.vue";
 import { useAuthStore } from "@/stores/auth";
 import { Eye, EyeOff } from "@lucide/vue";
+import { useToast } from "primevue/usetoast";
+import type { ToastServiceMethods } from "primevue/toastservice";
 export default defineComponent({
   components: { AppError, Eye, EyeOff },
   data() {
@@ -20,9 +22,15 @@ export default defineComponent({
         "h-10 w-full px-3 rounded-xl border border-gray-200 text-sm text-gray-800 outline-none focus:border-indigo-400 transition-colors bg-white",
     };
   },
-  setup(): { v$: Validation<ValidationArgs, unknown>; authStore: ReturnType<typeof useAuthStore> } {
+  setup(): {
+    v$: Validation<ValidationArgs, unknown>;
+    authStore: ReturnType<typeof useAuthStore>;
+    toast: ToastServiceMethods;
+  } {
     const authStore = useAuthStore();
+    const toast = useToast();
     return {
+      toast,
       authStore,
       v$: useVuelidate() as unknown as Validation<ValidationArgs, unknown>,
     };
@@ -59,30 +67,47 @@ export default defineComponent({
     register() {
       (this.v$ as unknown as Validation<ValidationArgs, unknown>).$validate();
       if ((this.v$ as unknown as Validation<ValidationArgs, unknown>).$invalid) return;
-      const body = {
-        name: this.form.name,
-        email: this.form.email,
-        password: this.form.password,
-      };
-      this.rest
-        .registerUser(body)
-        .then((res: any) => {
-          console.log(res, "res");
-          this.authStore.setUser(res.user);
-          this.authStore.setAccessToken(res.tokens.accessToken);
-          this.authStore.setRefreshToken(res.tokens.refreshToken);
-          console.log(this.authStore, "auth");
-          if (this.authStore.user.role === "CUSTOMER") {
-            this.$router.push({ path: "/history" });
-          }
-          if (this.authStore.user.role === "ADMIN") {
-            this.$router.push({ path: "/admin" });
-          }
-        })
-        .catch(() => {})
-        .finally(() => {
-          this.loading = false;
-        });
+
+      this.loading = true;
+
+      setTimeout(() => {
+        const body = {
+          name: this.form.name,
+          email: this.form.email,
+          password: this.form.password,
+        };
+
+        this.rest
+          .registerUser(body)
+          .then((res: any) => {
+            this.authStore.setUser(res.user);
+            this.authStore.setAccessToken(res.tokens.accessToken);
+            this.authStore.setRefreshToken(res.tokens.refreshToken);
+
+            this.toast.add({
+              severity: "success",
+              summary: "Conta criada!",
+              detail: `Bem-vindo, ${res.user.name}!`,
+              life: 3000,
+            });
+
+            this.$router.push("/");
+          })
+          .catch((err: any) => {
+            const message =
+              err.response?.status === 409 ? "E-mail já cadastrado" : "Erro ao criar conta";
+
+            this.toast.add({
+              severity: "error",
+              summary: "Erro",
+              detail: message,
+              life: 3000,
+            });
+          })
+          .finally(() => {
+            this.loading = false;
+          });
+      }, 1000);
     },
   },
 });

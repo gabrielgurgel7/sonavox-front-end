@@ -1,10 +1,13 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import useVuelidate, { type Validation, type ValidationArgs } from "@vuelidate/core";
+import { useToast } from "primevue/usetoast";
+import type { ToastServiceMethods } from "primevue/toastservice";
+import { Eye, EyeOff } from "@lucide/vue";
+import { useAuthStore } from "@/stores/auth";
+import { LoginRest } from "@/services/rest/login.rest";
 import { msg } from "@/utils/messages";
 import AppError from "@/components/AppError.vue";
-import { useAuthStore } from "@/stores/auth";
-import { Eye, EyeOff } from "@lucide/vue";
 
 class LoginForm {
   email = "";
@@ -16,15 +19,22 @@ export default defineComponent({
   data() {
     return {
       form: new LoginForm(),
+      rest: new LoginRest(),
       loading: false,
       showPassword: false,
       inputClass:
         "h-10 w-full px-3 rounded-xl border border-gray-200 text-sm text-gray-800 outline-none focus:border-indigo-400 transition-colors bg-white",
     };
   },
-  setup(): { v$: Validation<ValidationArgs, unknown>; authStore: ReturnType<typeof useAuthStore> } {
+  setup(): {
+    v$: Validation<ValidationArgs, unknown>;
+    authStore: ReturnType<typeof useAuthStore>;
+    toast: ToastServiceMethods;
+  } {
     const authStore = useAuthStore();
+    const toast = useToast();
     return {
+      toast,
       authStore,
       v$: useVuelidate() as unknown as Validation<ValidationArgs, unknown>,
     };
@@ -45,37 +55,50 @@ export default defineComponent({
   },
   methods: {
     login() {
+      console.log("form:", this.form);
       (this.v$ as unknown as Validation<ValidationArgs, unknown>).$validate();
+      console.log(
+        "inválido?",
+        (this.v$ as unknown as Validation<ValidationArgs, unknown>).$invalid,
+      );
+      console.log("erros:", (this.v$ as unknown as Validation<ValidationArgs, unknown>).$errors);
       if ((this.v$ as unknown as Validation<ValidationArgs, unknown>).$invalid) return;
-
+      console.log("3. passou validação");
       this.loading = true;
 
-      // Simula login — substituir pela chamada real quando tiver backend
-      Promise.resolve({
-        data: {
-          user: { id: "1", name: "Gabriel", email: this.form.email, role: "CUSTOMER" },
-          tokens: {
-            accessToken: "fake-access-token",
-            refreshToken: "fake-refresh-token",
-          },
-        },
-      })
-        .then((res: any) => {
-          this.authStore.setUser(res.data.user);
-          this.authStore.setAccessToken(res.data.tokens.accessToken);
-          this.authStore.setRefreshToken(res.data.tokens.refreshToken);
+      setTimeout(() => {
+        console.log("4. dentro do setTimeout");
+        this.rest
+          .loginUser({ email: this.form.email, password: this.form.password })
+          .then((res: any) => {
+            console.log("resposta completa:", res);
+            this.authStore.setUser(res.user);
+            this.authStore.setAccessToken(res.tokens.accessToken);
+            this.authStore.setRefreshToken(res.tokens.refreshToken);
+            console.log("chamando toast");
+            this.toast.add({
+              severity: "success",
+              summary: "Login realizado!",
+              detail: `Bem-vindo, ${res.user.name}!`,
+              life: 3000,
+            });
 
-          if (this.authStore.user.role === "CUSTOMER") {
-            this.$router.push({ path: "/" });
-          }
-          if (this.authStore.user.role === "ADMIN") {
-            this.$router.push({ path: "/admin" });
-          }
-        })
-        .catch(() => {})
-        .finally(() => {
-          this.loading = false;
-        });
+            const redirect = this.$route.query.redirect as string;
+            this.$router.push(redirect ?? "/");
+          })
+          .catch((err) => {
+            console.log("6. catch executado", err);
+            this.toast.add({
+              severity: "error",
+              summary: "Erro",
+              detail: "Credenciais inválidas",
+              life: 3000,
+            });
+          })
+          .finally(() => {
+            this.loading = false;
+          });
+      }, 1000);
     },
   },
 });
