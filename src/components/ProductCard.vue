@@ -1,8 +1,13 @@
 <script lang="ts">
 import { defineComponent, type PropType } from "vue";
 import { Shipment, type Product } from "@/models/product.model";
+import { useCartStore } from "@/stores/cart";
 
 export default defineComponent({
+  setup() {
+    const cartStore = useCartStore();
+    return { cartStore };
+  },
   data() {
     return {
       Shipment,
@@ -68,7 +73,7 @@ export default defineComponent({
         <PrimeButton
           unstyled
           class="h-9 rounded-xl bg-indigo-600 text-white text-sm font-medium cursor-pointer hover:bg-indigo-500 transition-colors"
-          @click="$emit('add-to-cart', product)"
+          @click="cartStore.incrementItem(product!)"
         >
           <template #default>Comprar</template>
         </PrimeButton>
@@ -76,7 +81,7 @@ export default defineComponent({
         <PrimeButton
           unstyled
           class="h-9 rounded-xl border border-gray-300 bg-transparent text-sm text-black cursor-pointer hover:bg-indigo-50 transition-colors"
-          @click="$emit('add-to-cart', product)"
+          @click="cartStore.incrementItem(product!)"
         >
           <template #default>Adicionar ao carrinho</template>
         </PrimeButton>

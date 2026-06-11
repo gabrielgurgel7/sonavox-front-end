@@ -5,13 +5,11 @@ import { MenuIcon, ShoppingBag, SearchIcon, X } from "@lucide/vue";
 import CartSummary from "@/components/CartSummary.vue";
 import { useAuthStore } from "@/stores/auth";
 import { useCartStore } from "@/stores/cart";
-import UserMenu from "@/components/usermenu/index.vue";
+import UserMenu from "@/components/usermenu/AppUserMenu.vue";
 
 export default defineComponent({
   data() {
-    return {
-      cartOpen: false,
-    };
+    return {};
   },
   setup() {
     const authStore = useAuthStore();
@@ -22,7 +20,6 @@ export default defineComponent({
     incrementItem(product: Product) {
       console.log("addOneItem chamado:", product.name);
       this.cartStore.incrementItem(product);
-      this.cartOpen = true;
     },
     decrementItem(product: Product) {
       this.cartStore.decrementItem(product);
@@ -84,7 +81,7 @@ export default defineComponent({
           <PrimeButton
             unstyled
             class="h-9 w-9 rounded-full bg-transparent flex items-center justify-center text-sm text-black cursor-pointer hover:bg-indigo-50 transition-colors flex-shrink-0"
-            @click="cartOpen = true"
+            @click="cartStore.cartOpen = true"
           >
             <ShoppingBag class="text-indigo-600" />
           </PrimeButton>
@@ -147,7 +144,7 @@ export default defineComponent({
 
     <!-- Drawer do carrinho -->
     <PrimeDrawer
-      v-model:visible="cartOpen"
+      v-model:visible="cartStore.cartOpen"
       position="right"
       :pt="{
         root: 'bg-white w-500',

@@ -1,6 +1,5 @@
 <script lang="ts">
-import { Product, Shipment } from "@/models/product.model";
-import { Category } from "@/models/category.model";
+import { Product } from "@/models/product.model";
 import { defineComponent } from "vue";
 import productsData from "@/data/productsData.json";
 import ProductCard from "@/components/ProductCard.vue";
@@ -21,15 +20,23 @@ export default defineComponent({
       if (!found) return;
 
       this.productId = new Product(
-        found.id ?? 0,
-        found.img,
-        found.name,
+        found.categoryId,
+        found.compareAtPrice,
+        found.createdAt,
         found.description,
-        found.price,
-        new Category(found.category),
         found.discount,
-        found.isActived,
-        found.shipment as Shipment,
+        found.id,
+        found.images,
+        found.isActive,
+        found.name,
+        found.price,
+        found.shipment,
+        found.sku,
+        found.slug,
+        found.stock,
+        found.stripePriceId,
+        found.stripeProductId,
+        found.updatedAt,
       );
     },
   },
@@ -42,7 +49,7 @@ export default defineComponent({
   <div v-if="productId">
     <ProductCard :product="productId" />
   </div>
-  <div v-else>
-    <p>Produto não encontrado.</p>
+  <div v-else class="flex items-center justify-center w-screen h-screen">
+    <h1 class="text-3xl text-black">Produto não encontrado</h1>
   </div>
 </template>

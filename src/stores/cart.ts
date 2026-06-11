@@ -10,6 +10,7 @@ interface ListProduct {
 export const useCartStore = defineStore("cart", {
   state: () => ({
     listProduct: [] as ListProduct[],
+    cartOpen: false,
   }),
 
   getters: {
@@ -45,6 +46,7 @@ export const useCartStore = defineStore("cart", {
       } else {
         this.listProduct.push({ product, quantity: 1, price: 0 });
       }
+      this.cartOpen = true;
     },
     decrementItem(product: Product) {
       const existingItem = this.findCardItem(product);

@@ -1,16 +1,19 @@
 import type { App } from "vue";
+
 import PrimeVue from "primevue/config";
-import Lara from "@primeuix/themes/lara";
 import ToastService from "primevue/toastservice";
+import Lara from "@primeuix/themes/lara";
+
 import {
-  Button,
   AutoComplete,
-  Drawer,
-  DataTable,
+  Button,
+  Card,
   Column,
+  DataTable,
+  Drawer,
   InputText,
-  Password,
   Menu,
+  Password,
   Toast,
 } from "primevue";
 
@@ -21,16 +24,16 @@ export function setPrimeVue(app: App): void {
       darkModeSelector: false,
     },
   });
-
   app.use(ToastService);
 
-  app.component("PrimeButton", Button);
   app.component("PrimeAutoComplete", AutoComplete);
-  app.component("PrimeDrawer", Drawer);
-  app.component("PrimeDataTable", DataTable);
+  app.component("PrimeButton", Button);
+  app.component("PrimeCard", Card);
   app.component("PrimeColumn", Column);
+  app.component("PrimeDataTable", DataTable);
+  app.component("PrimeDrawer", Drawer);
   app.component("PrimeInputText", InputText);
-  app.component("PrimePassword", Password);
   app.component("PrimeMenu", Menu);
+  app.component("PrimePassword", Password);
   app.component("PrimeToast", Toast);
 }
