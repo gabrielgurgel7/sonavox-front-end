@@ -4,7 +4,7 @@ import RegisterForm from "@/models/register.model";
 import useVuelidate, { type Validation, type ValidationArgs } from "@vuelidate/core";
 import { msg } from "@/utils/messages";
 import { RegisterRest } from "@/services/rest/resgister.rest";
-import AppError from "@/components/AppError.vue";
+import AppError from "@/components/common/AppError.vue";
 import { useAuthStore } from "@/stores/auth";
 import { Eye, EyeOff } from "@lucide/vue";
 import { useToast } from "primevue/usetoast";

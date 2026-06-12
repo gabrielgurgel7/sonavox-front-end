@@ -1,7 +1,7 @@
 <script lang="ts">
 import { Product } from "@/models/product.model";
-import ProductCard from "@/components/ProductCard.vue";
-import AppHomeBanner from "@/components/AppHomeBanner.vue";
+import ProductCard from "@/components/product/ProductCard.vue";
+import AppHomeBanner from "@/components/layout/AppHomeBanner.vue";
 import { ProductRest } from "@/services/rest/product.rest";
 
 export default {

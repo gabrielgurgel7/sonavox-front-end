@@ -16,6 +16,10 @@ import {
   Menu,
   Password,
   Toast,
+  Stepper,
+  StepPanel,
+  StepPanels,
+  StepList,
 } from "primevue";
 
 export function setPrimeVue(app: App): void {
@@ -38,4 +42,8 @@ export function setPrimeVue(app: App): void {
   app.component("PrimeMenu", Menu);
   app.component("PrimePassword", Password);
   app.component("PrimeToast", Toast);
+  app.component("PrimeStepper", Stepper);
+  app.component("PrimeStepList", StepList);
+  app.component("PrimeStepPanel", StepPanel);
+  app.component("PrimeStepPanels", StepPanels);
 }

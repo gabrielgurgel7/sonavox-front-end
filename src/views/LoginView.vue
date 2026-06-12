@@ -7,7 +7,7 @@ import { Eye, EyeOff } from "@lucide/vue";
 import { useAuthStore } from "@/stores/auth";
 import { LoginRest } from "@/services/rest/login.rest";
 import { msg } from "@/utils/messages";
-import AppError from "@/components/AppError.vue";
+import AppError from "@/components/common/AppError.vue";
 
 class LoginForm {
   email = "";

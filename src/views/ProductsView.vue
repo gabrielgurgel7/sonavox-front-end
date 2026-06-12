@@ -1,5 +1,5 @@
 <script lang="ts">
-import ProductCard from "@/components/ProductCard.vue";
+import ProductCard from "@/components/product/ProductCard.vue";
 import { Product } from "@/models/product.model";
 import { QueryParams } from "@/models/queryParams";
 import { ProductRest } from "@/services/rest/product.rest";

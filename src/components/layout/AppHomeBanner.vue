@@ -3,7 +3,7 @@
     <!-- Imagem de fundo -->
     <img
       class="absolute inset-0 w-full h-full object-cover"
-      src="../assets/imgs/banner_hero_musi_commerce.webp"
+      src="@/assets/imgs/banner_hero_musi_commerce.webp"
       alt="Banner Sonavox"
     />
 

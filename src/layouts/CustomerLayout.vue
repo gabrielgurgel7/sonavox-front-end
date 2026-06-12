@@ -2,12 +2,12 @@
 import { defineComponent } from "vue";
 import { Product } from "@/models/product.model";
 import { MenuIcon, ShoppingBag, SearchIcon, X } from "@lucide/vue";
-import CartSummary from "@/components/CartSummary.vue";
 import { useAuthStore } from "@/stores/auth";
 import { useCartStore } from "@/stores/cart";
+import CartSummary from "@/components/cart/CartSummary.vue";
 import UserMenu from "@/components/usermenu/AppUserMenu.vue";
-import PromoSpam from "@/components/PromoSpam.vue";
-import AppFooter from "@/components/AppFooter.vue";
+import PromoBar from "@/components/promo/PromoBar.vue";
+import AppFooter from "@/components/layout/AppFooter.vue";
 
 export default defineComponent({
   data() {
@@ -30,7 +30,7 @@ export default defineComponent({
       this.cartStore.removeItem(product);
     },
   },
-  components: { MenuIcon, ShoppingBag, SearchIcon, X, CartSummary, UserMenu, PromoSpam, AppFooter },
+  components: { MenuIcon, ShoppingBag, SearchIcon, X, CartSummary, UserMenu, PromoBar, AppFooter },
 });
 </script>
 
@@ -94,7 +94,7 @@ export default defineComponent({
 
     <nav class="p-2 bg-neutral-50 dark:bg-gray-900">
       <slot name="nav">
-        <div class="flex items-center justify-between gap-4 px-12">
+        <div class="flex items-center justify-between gap-2 px-12">
           <div
             class="flex flex-row items-center border border-gray-300 dark:border-gray-700 bg-transparent rounded-full focus-within:border-indigo-400 transition-colors"
           >
@@ -116,7 +116,7 @@ export default defineComponent({
           </div>
 
           <div class="flex-1 px-4">
-            <PromoSpam />
+            <PromoBar />
           </div>
 
           <div class="flex flex-row gap-1">

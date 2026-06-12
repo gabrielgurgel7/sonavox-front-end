@@ -3,7 +3,7 @@ import { Product } from "@/models/product.model";
 import { Image } from "@/models/image.model";
 import { ProductRest } from "@/services/rest/product.rest";
 import { defineComponent } from "vue";
-import ProductCard from "@/components/ProductCard.vue";
+import ProductCard from "@/components/product/ProductCard.vue";
 import type { IProductResponse, IImage } from "@/types/api.types";
 
 export default defineComponent({
