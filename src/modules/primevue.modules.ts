@@ -20,6 +20,7 @@ import {
   StepPanel,
   StepPanels,
   StepList,
+  Step,
 } from "primevue";
 
 export function setPrimeVue(app: App): void {
@@ -46,4 +47,5 @@ export function setPrimeVue(app: App): void {
   app.component("PrimeStepList", StepList);
   app.component("PrimeStepPanel", StepPanel);
   app.component("PrimeStepPanels", StepPanels);
+  app.component("PrimeStep", Step);
 }

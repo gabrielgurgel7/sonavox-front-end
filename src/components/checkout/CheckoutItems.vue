@@ -1,5 +1,5 @@
 <script lang="ts">
-import { ShippingAddress } from "@/model/shippingAddress.model";
+import { ShippingAddress } from "@/models/shippingAddress.model";
 import useVuelidate from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
 import { defineComponent } from "vue";

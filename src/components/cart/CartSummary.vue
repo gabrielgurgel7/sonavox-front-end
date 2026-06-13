@@ -79,7 +79,7 @@ export default defineComponent({
     <RouterLink
       to="/checkout"
       class="w-full h-10 rounded-xl bg-indigo-600 text-white text-sm font-medium flex items-center justify-center hover:bg-indigo-500 transition-colors mt-4"
-      :label="'Finalizar compra'"
-    />
+      >Finalizar compra</RouterLink
+    >
   </div>
 </template>

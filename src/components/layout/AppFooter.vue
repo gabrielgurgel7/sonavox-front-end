@@ -16,7 +16,7 @@ export default defineComponent({
         <figure class="m-0 select-none">
           <RouterLink to="/">
             <img
-              src="../assets/imgs/logo_sonavox_header.svg"
+              src="@/assets/imgs/logo_sonavox_header.svg"
               alt="Logo Sonavox"
               draggable="false"
               class="dark:brightness-0 dark:invert"
