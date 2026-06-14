@@ -1,6 +1,6 @@
 import { Product } from "./product.model.js";
 
-interface ListProduct {
+export interface ListProduct {
   product: Product;
   quantity: number;
   price: number;

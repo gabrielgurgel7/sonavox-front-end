@@ -32,7 +32,7 @@ export default defineComponent({
         neighborhood: { required },
         country: { required },
         zipCode: { required },
-        complement: { required },
+        complement: {},
       },
     };
   },
@@ -41,7 +41,7 @@ export default defineComponent({
       this.v$.$validate();
       if (this.v$.$invalid) return;
       this.$emit("onNext", this.shippingAddress);
-      this.next("2");
+      this.next("3");
     },
   },
   components: { AppError },
@@ -145,12 +145,20 @@ export default defineComponent({
         </div>
       </div>
 
-      <PrimeButton
-        unstyled
-        type="submit"
-        class="h-10 w-full rounded-xl bg-indigo-600 text-white text-sm font-medium cursor-pointer hover:bg-indigo-500 transition-colors mt-2"
-        label="Confirmar endereço"
-      />
+      <div class="flex flex-row gap-2">
+        <PrimeButton
+          unstyled
+          @click="next('1')"
+          class="h-10 w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-transparent text-sm text-black dark:text-white hover:bg-indigo-50 dark:hover:bg-indigo-950 font-medium cursor-pointer transition-colors mt-2"
+          label="Retornar"
+        />
+        <PrimeButton
+          unstyled
+          type="submit"
+          class="h-10 w-full rounded-xl bg-indigo-600 text-white text-sm font-medium cursor-pointer hover:bg-indigo-500 transition-colors mt-2"
+          label="Confirmar endereço"
+        />
+      </div>
     </form>
   </div>
 </template>

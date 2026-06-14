@@ -16,6 +16,7 @@ export default defineComponent({
       type: Object as PropType<CartItem>,
       required: true,
     },
+    silent: { type: Boolean, default: false },
   },
   emits: ["increment", "decrement", "remove"],
 });
@@ -39,7 +40,7 @@ export default defineComponent({
         <div class="flex items-center gap-2 bg-indigo-50 dark:bg-gray-800 rounded-full h-6">
           <button
             class="h-6 w-6 flex items-center justify-center rounded-full text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-700 hover:bg-green-200 dark:hover:bg-green-900 transition-colors cursor-pointer border-none shrink-0"
-            @click="$emit('increment', item.product)"
+            @click="$emit('increment', item.product, silent)"
           >
             <Plus :size="20" />
           </button>

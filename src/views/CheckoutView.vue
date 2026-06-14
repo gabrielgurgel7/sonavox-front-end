@@ -8,6 +8,8 @@ import CheckoutReview from "@/components/checkout/CheckoutReview.vue";
 import CheckoutSummary from "@/components/checkout/CheckoutSummary.vue";
 import { useCartStore } from "@/stores/cart";
 import { useRouter } from "vue-router";
+import { CheckOutService } from "@/services/checkout.service";
+import { ShippingAddress } from "@/models/shippingAddress.model";
 
 export default defineComponent({
   components: { CheckoutItems, CheckoutAddress, CheckoutPayment, CheckoutReview, CheckoutSummary },
@@ -16,12 +18,27 @@ export default defineComponent({
       form: {
         order: new Order(),
       },
+      rest: new CheckOutService(),
+      address: new ShippingAddress(),
+      service: new CheckOutService(),
     };
   },
   setup() {
     const cartStore = useCartStore();
     const router = useRouter();
     return { cartStore, router };
+  },
+  methods: {
+    setAddress(address: ShippingAddress) {
+      this.form.order.shippingAddress = address;
+    },
+    async submitOrder() {
+      const res = await this.rest.createOrder(
+        this.cartStore.listProduct,
+        this.form.order.shippingAddress,
+      );
+      window.location.href = res.data.url;
+    },
   },
 });
 </script>
@@ -58,7 +75,7 @@ export default defineComponent({
               <div
                 class="md:col-span-2 bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 p-6"
               >
-                <CheckoutAddress :next="activateCallback" />
+                <CheckoutAddress :next="activateCallback" @onNext="setAddress" />
               </div>
               <div
                 class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 sticky top-6 self-start"
@@ -88,7 +105,7 @@ export default defineComponent({
               <div
                 class="md:col-span-2 bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 p-6"
               >
-                <CheckoutReview :next="activateCallback" />
+                <CheckoutReview :next="activateCallback" @onFinish="submitOrder" />
               </div>
               <div
                 class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 sticky top-6 self-start"

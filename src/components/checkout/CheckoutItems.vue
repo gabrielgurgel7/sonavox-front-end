@@ -36,7 +36,8 @@ export default defineComponent({
       v-for="item in cartStore.listProduct"
       :key="item.product.id"
       :item="item"
-      @increment="cartStore.incrementItem"
+      :silent="true"
+      @increment="(product) => cartStore.incrementItem(product, true)"
       @decrement="cartStore.decrementItem"
       @remove="cartStore.removeItem"
     />

@@ -23,6 +23,8 @@ export default defineComponent({
       menu.value.toggle(event);
     };
 
+    const firstName = computed(() => authStore.getUser?.name?.split(" ")[0] ?? "");
+
     const allItems = [
       {
         label: "Admin",
@@ -50,7 +52,7 @@ export default defineComponent({
       allItems.filter((item) => !item.role || item.role === authStore.getRole),
     );
 
-    return { authStore, menu, toggle, items, isDark, toggleDark };
+    return { authStore, menu, toggle, items, isDark, toggleDark, firstName };
   },
 });
 </script>
@@ -62,7 +64,7 @@ export default defineComponent({
       @click="toggle"
     >
       <span class="text-sm font-medium text-gray-700 dark:text-gray-200">
-        Olá, {{ authStore.getUser?.name }}
+        Olá, {{ firstName }}
       </span>
       <ChevronDown :size="14" class="text-gray-400 dark:text-gray-500" />
     </button>

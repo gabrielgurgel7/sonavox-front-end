@@ -167,12 +167,7 @@ export default defineComponent({
       <template #closeicon>
         <X :size="18" class="text-indigo-400" />
       </template>
-      <CartSummary
-        :cart="cartStore"
-        @add-to-cart="incrementItem"
-        @remove-to-cart="decrementItem"
-        @remove-to-cart-total="removeItem"
-      />
+      <CartSummary />
     </PrimeDrawer>
 
     <AppFooter />

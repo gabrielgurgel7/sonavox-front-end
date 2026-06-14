@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { Product } from "@/models/product.model";
 
-interface ListProduct {
+export interface ListProduct {
   product: Product;
   quantity: number;
   price: number;
@@ -39,14 +39,16 @@ export const useCartStore = defineStore("cart", {
   },
 
   actions: {
-    incrementItem(product: Product) {
+    incrementItem(product: Product, silent = false) {
       const existingItem = this.findCardItem(product);
       if (existingItem) {
         existingItem.quantity++;
       } else {
         this.listProduct.push({ product, quantity: 1, price: 0 });
       }
-      this.cartOpen = true;
+      if (!silent) {
+        this.cartOpen = true;
+      }
     },
     decrementItem(product: Product) {
       const existingItem = this.findCardItem(product);

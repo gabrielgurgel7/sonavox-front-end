@@ -1,13 +1,22 @@
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, nextTick } from "vue";
 import { useCartStore } from "@/stores/cart";
+import { useRouter } from "vue-router";
 import CartItemCard from "./CartItemCard.vue";
 
 export default defineComponent({
   components: { CartItemCard },
   setup() {
     const cartStore = useCartStore();
-    return { cartStore };
+    const router = useRouter();
+
+    async function goToCheckout() {
+      cartStore.cartOpen = false;
+      await nextTick();
+      router.push("/checkout");
+    }
+
+    return { cartStore, goToCheckout };
   },
 });
 </script>
@@ -34,18 +43,10 @@ export default defineComponent({
       Total: {{ cartStore.formatedTotal }}
     </p>
 
-    <RouterLink
-      v-if="cartStore.listProduct.length > 0"
-      to="/checkout"
-      class="w-full h-10 rounded-xl bg-indigo-600 text-white text-sm font-medium flex items-center justify-center hover:bg-indigo-500 transition-colors mt-4"
-    >
-      Finalizar compra
-    </RouterLink>
-
     <button
-      v-else
-      disabled
-      class="w-full h-10 rounded-xl bg-gray-300 dark:bg-gray-700 text-gray-400 text-sm font-medium flex items-center justify-center mt-4 cursor-not-allowed"
+      v-if="cartStore.listProduct.length > 0"
+      @click="goToCheckout"
+      class="w-full h-10 rounded-xl bg-indigo-600 text-white text-sm font-medium flex items-center justify-center hover:bg-indigo-500 transition-colors mt-4 cursor-pointer border-none"
     >
       Finalizar compra
     </button>
