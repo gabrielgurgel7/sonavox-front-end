@@ -46,10 +46,19 @@ export default defineComponent({
     </p>
 
     <button
+      v-if="cartStore.listProduct.length > 0"
       class="w-full h-10 rounded-xl bg-indigo-600 text-white text-sm font-medium flex items-center justify-center hover:bg-indigo-500 transition-colors mt-4 cursor-pointer border-none"
       @click="next('2')"
     >
       Continuar para endereço
     </button>
+
+    <RouterLink
+      v-else
+      to="/"
+      class="w-full h-10 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-sm font-medium flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors mt-4"
+    >
+      Voltar a comprar
+    </RouterLink>
   </div>
 </template>

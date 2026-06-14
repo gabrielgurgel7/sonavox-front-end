@@ -4,21 +4,20 @@ import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
 import { ChevronDown, Settings, LogOut, UserStar, Moon, Sun } from "@lucide/vue";
 
-const isDark = ref(document.documentElement.classList.contains("dark"));
-
-const toggleDark = () => {
-  isDark.value = !isDark.value;
-  document.documentElement.classList.toggle("dark");
-  localStorage.setItem("theme", isDark.value ? "dark" : "light");
-  // console.log("dark?", document.documentElement.classList.contains("dark"));
-};
-
 export default defineComponent({
   components: { ChevronDown, Settings, LogOut, UserStar, Moon, Sun },
   setup() {
     const authStore = useAuthStore();
     const menu = ref();
     const router = useRouter();
+
+    const isDark = ref(document.documentElement.classList.contains("dark"));
+
+    const toggleDark = () => {
+      isDark.value = !isDark.value;
+      document.documentElement.classList.toggle("dark");
+      localStorage.setItem("theme", isDark.value ? "dark" : "light");
+    };
 
     const toggle = (event: Event) => {
       menu.value.toggle(event);
@@ -96,22 +95,23 @@ export default defineComponent({
             class="text-gray-400 dark:text-gray-500"
           />
           <Moon
-            v-if="item.label === 'toggle-theme' && isDark"
-            :size="14"
-            class="text-gray-400 dark:text-gray-500"
-          />
-          <Sun
             v-if="item.label === 'toggle-theme' && !isDark"
             :size="14"
             class="text-gray-400 dark:text-gray-500"
           />
+          <Sun
+            v-if="item.label === 'toggle-theme' && isDark"
+            :size="14"
+            class="text-gray-400 dark:text-gray-500"
+          />
+
           <LogOut
             v-if="item.label === 'Sair'"
             :size="14"
             class="text-gray-400 dark:text-gray-500"
           />
           <span v-if="item.label === 'toggle-theme'">
-            {{ isDark ? "Modo escuro" : "Modo claro" }}
+            {{ isDark ? "Modo claro" : "Modo escuro" }}
           </span>
           <span v-else>{{ item.label }}</span>
         </a>

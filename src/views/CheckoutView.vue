@@ -6,6 +6,8 @@ import CheckoutAddress from "@/components/checkout/CheckoutAddress.vue";
 import CheckoutPayment from "@/components/checkout/CheckoutPayment.vue";
 import CheckoutReview from "@/components/checkout/CheckoutReview.vue";
 import CheckoutSummary from "@/components/checkout/CheckoutSummary.vue";
+import { useCartStore } from "@/stores/cart";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   components: { CheckoutItems, CheckoutAddress, CheckoutPayment, CheckoutReview, CheckoutSummary },
@@ -15,6 +17,11 @@ export default defineComponent({
         order: new Order(),
       },
     };
+  },
+  setup() {
+    const cartStore = useCartStore();
+    const router = useRouter();
+    return { cartStore, router };
   },
 });
 </script>
@@ -95,3 +102,9 @@ export default defineComponent({
     </div>
   </section>
 </template>
+
+<style>
+.p-steppanel {
+  background: transparent !important;
+}
+</style>

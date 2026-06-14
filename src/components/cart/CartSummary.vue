@@ -18,7 +18,7 @@ export default defineComponent({
       v-if="cartStore.listProduct.length === 0"
       class="text-sm text-gray-400 dark:text-gray-500 py-4 text-center"
     >
-      Seu carrinho está vazio.
+      Seu carrinho está vazio. <br />Vamos comprar?
     </div>
 
     <CartItemCard
@@ -35,10 +35,19 @@ export default defineComponent({
     </p>
 
     <RouterLink
+      v-if="cartStore.listProduct.length > 0"
       to="/checkout"
       class="w-full h-10 rounded-xl bg-indigo-600 text-white text-sm font-medium flex items-center justify-center hover:bg-indigo-500 transition-colors mt-4"
     >
       Finalizar compra
     </RouterLink>
+
+    <button
+      v-else
+      disabled
+      class="w-full h-10 rounded-xl bg-gray-300 dark:bg-gray-700 text-gray-400 text-sm font-medium flex items-center justify-center mt-4 cursor-not-allowed"
+    >
+      Finalizar compra
+    </button>
   </div>
 </template>

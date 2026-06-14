@@ -17,6 +17,8 @@ import { authorizedGuard } from "./guards/authorized.guard";
 import HistoryView from "@/views/HistoryView.vue";
 import CustomerOrdersView from "@/views/CustomerOrdersView.vue";
 
+import { useCartStore } from "@/stores/cart";
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -50,6 +52,12 @@ const router = createRouter({
           meta: {
             auth: true,
             role: ["CUSTOMER"],
+          },
+          beforeEnter: () => {
+            const cartStore = useCartStore();
+            if (cartStore.listProduct.length === 0) {
+              return "/";
+            }
           },
         },
         {
