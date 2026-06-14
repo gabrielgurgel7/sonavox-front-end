@@ -1,4 +1,9 @@
-import type { ShippingAddress } from "./shippingAddress.model";
+import { ShippingAddress } from "./shippingAddress.model";
+
+export interface CheckoutItem {
+  productId: string;
+  quantity: number;
+}
 
 export class Order {
   constructor(
@@ -8,9 +13,4 @@ export class Order {
     public cancelUrl: string = "",
     public notes?: string,
   ) {}
-}
-
-export interface CheckoutItem {
-  productId: string;
-  quantity: number;
 }

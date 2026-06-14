@@ -1,14 +1,11 @@
 <script lang="ts">
-import { ShippingAddress } from "@/models/shippingAddress.model";
-import useVuelidate from "@vuelidate/core";
-import { required } from "@vuelidate/validators";
 import { defineComponent } from "vue";
+import { useCartStore } from "@/stores/cart";
+import type { Product } from "@/models/product.model";
+import CartItemCard from "../cart/CartItemCard.vue";
+
 export default defineComponent({
-  data() {
-    return {
-      shippingAddress: new ShippingAddress(),
-    };
-  },
+  components: { CartItemCard },
   props: {
     next: {
       type: Function,
@@ -16,76 +13,43 @@ export default defineComponent({
     },
   },
   setup() {
-    return {
-      v$: useVuelidate(),
-    };
-  },
-  validations() {
-    return {
-      shippingAddress: {
-        city: { required },
-        street: { required },
-        number: { required },
-        neighborhood: { required },
-        country: { required },
-        zipCode: { required },
-        complement: { required },
-      },
-    };
+    const cartStore = useCartStore();
+    return { cartStore };
   },
   methods: {
-    submitAddress() {
-      this.v$.$validate();
-      if (this.v$.$invalid) return;
-      this.$emit("onNext", this.shippingAddress);
-      this.next("2");
+    addToCart(product: Product) {
+      this.cartStore.incrementItem(product);
+    },
+    removeToCart(product: Product) {
+      this.cartStore.decrementItem(product);
+    },
+    removeToCartTotal(product: Product) {
+      this.cartStore.removeItem(product);
     },
   },
-  components: { Error },
 });
 </script>
+
 <template>
-  <form @submit.prevent="submitAddress" class="grid grid-cols-3 gap-4">
-    <label>
-      Cidade:
-      <InputText v-model="shippingAddress.city" />
-      <Error :value="v$.shippingAddress" field="city" />
-    </label>
-    <label>
-      Rua:
-      <InputText v-model="shippingAddress.street" />
-      <Error :value="v$.shippingAddress" field="street" />
-    </label>
-    <label>
-      Complemento:
-      <InputText v-model="shippingAddress.complement" />
-      <Error :value="v$.shippingAddress" field="complement" />
-    </label>
-    <label>
-      País:
-      <InputText v-model="shippingAddress.country" />
-      <Error :value="v$.shippingAddress" field="country" />
-    </label>
-    <label>
-      Bairro:
-      <InputText v-model="shippingAddress.neighborhood" />
-      <Error :value="v$.shippingAddress" field="neighborhood" />
-    </label>
-    <label>
-      Número:
-      <InputText v-model="shippingAddress.number" />
-      <Error :value="v$.shippingAddress" field="number" />
-    </label>
-    <label>
-      Estado:
-      <InputText v-model="shippingAddress.state" />
-      <Error :value="v$.shippingAddress" field="state" />
-    </label>
-    <label>
-      CEP:
-      <InputText v-model="shippingAddress.zipCode" />
-      <Error :value="v$.shippingAddress" field="zipCode" />
-    </label>
-    <Button type="submit" :label="'Próximo'" class="col-start-1 col-end-3 mt-20" />
-  </form>
+  <div class="p-4">
+    <CartItemCard
+      v-for="item in cartStore.listProduct"
+      :key="item.product.id"
+      :item="item"
+      @increment="cartStore.incrementItem"
+      @decrement="cartStore.decrementItem"
+      @remove="cartStore.removeItem"
+    />
+
+    <p class="text-base text-black dark:text-white font-bold pt-4">
+      Total: {{ cartStore.formatedTotal }}
+    </p>
+
+    <button
+      class="w-full h-10 rounded-xl bg-indigo-600 text-white text-sm font-medium flex items-center justify-center hover:bg-indigo-500 transition-colors mt-4 cursor-pointer border-none"
+      @click="next('2')"
+    >
+      Continuar para endereço
+    </button>
+  </div>
 </template>
