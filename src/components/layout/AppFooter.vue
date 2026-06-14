@@ -10,23 +10,48 @@ export default defineComponent({
 <template>
   <footer class="bg-neutral-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
     <!-- Bloco principal -->
-    <div class="px-12 py-12 grid grid-cols-4 gap-8">
+    <div class="px-4 md:px-12 py-8 md:py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
       <!-- Coluna 1: Marca + redes sociais -->
-      <div class="flex flex-col gap-4">
+      <div class="flex flex-col gap-4 sm:col-span-2 md:col-span-1">
         <figure class="m-0 select-none">
           <RouterLink to="/">
             <img
               src="@/assets/imgs/logo_sonavox_header.svg"
               alt="Logo Sonavox"
               draggable="false"
-              class="dark:brightness-0 dark:invert"
+              class="dark:brightness-0 dark:invert h-7"
             />
           </RouterLink>
         </figure>
         <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
           Sua loja de instrumentos e acessórios musicais com os melhores preços.
         </p>
-        <div class="flex gap-3"></div>
+        <div class="flex gap-3">
+          <a
+            href="#"
+            class="h-9 w-9 rounded-full border border-gray-300 dark:border-gray-700 flex items-center justify-center text-gray-400 hover:border-indigo-400 hover:text-indigo-400 transition-colors"
+          >
+            <Instagram :size="16" />
+          </a>
+          <a
+            href="#"
+            class="h-9 w-9 rounded-full border border-gray-300 dark:border-gray-700 flex items-center justify-center text-gray-400 hover:border-indigo-400 hover:text-indigo-400 transition-colors"
+          >
+            <Facebook :size="16" />
+          </a>
+          <a
+            href="#"
+            class="h-9 w-9 rounded-full border border-gray-300 dark:border-gray-700 flex items-center justify-center text-gray-400 hover:border-indigo-400 hover:text-indigo-400 transition-colors"
+          >
+            <Youtube :size="16" />
+          </a>
+          <a
+            href="#"
+            class="h-9 w-9 rounded-full border border-gray-300 dark:border-gray-700 flex items-center justify-center text-gray-400 hover:border-indigo-400 hover:text-indigo-400 transition-colors"
+          >
+            <Twitter :size="16" />
+          </a>
+        </div>
       </div>
 
       <!-- Coluna 2: Categorias -->
@@ -85,7 +110,7 @@ export default defineComponent({
       </div>
 
       <!-- Coluna 4: Newsletter -->
-      <div class="flex flex-col gap-3">
+      <div class="flex flex-col gap-3 sm:col-span-2 md:col-span-1">
         <p class="text-sm font-semibold text-gray-800 dark:text-white">Newsletter</p>
         <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
           Receba ofertas exclusivas e novidades direto no seu e-mail.
@@ -111,17 +136,19 @@ export default defineComponent({
     </div>
 
     <!-- Divider -->
-    <div class="border-t border-gray-200 dark:border-gray-700 mx-12" />
+    <div class="border-t border-gray-200 dark:border-gray-700 mx-4 md:mx-12"></div>
 
-    <!-- Rodapé inferior: pagamento + selos + copyright -->
-    <div class="px-12 py-6 flex items-center justify-between gap-4 flex-wrap">
+    <!-- Rodapé inferior -->
+    <div
+      class="px-4 md:px-12 py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+    >
       <!-- Copyright -->
       <p class="text-xs text-gray-400 m-0">
         © {{ new Date().getFullYear() }} Sonavox. Todos os direitos reservados.
       </p>
 
       <!-- Formas de pagamento -->
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2 flex-wrap">
         <span class="text-xs text-gray-400 mr-1">Pagamentos:</span>
         <span
           v-for="method in ['Visa', 'Master', 'Pix', 'Boleto']"
@@ -133,7 +160,7 @@ export default defineComponent({
       </div>
 
       <!-- Selos de segurança -->
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 flex-wrap">
         <span class="text-xs text-gray-400 mr-1">Segurança:</span>
         <span
           v-for="seal in ['SSL', 'Site Blindado', 'E-bit']"

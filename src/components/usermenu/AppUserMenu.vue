@@ -3,6 +3,7 @@ import { defineComponent, ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
 import { ChevronDown, Settings, LogOut, UserStar, Moon, Sun } from "@lucide/vue";
+import { useTheme } from "@/composables/useTheme";
 
 export default defineComponent({
   components: { ChevronDown, Settings, LogOut, UserStar, Moon, Sun },
@@ -10,14 +11,7 @@ export default defineComponent({
     const authStore = useAuthStore();
     const menu = ref();
     const router = useRouter();
-
-    const isDark = ref(document.documentElement.classList.contains("dark"));
-
-    const toggleDark = () => {
-      isDark.value = !isDark.value;
-      document.documentElement.classList.toggle("dark");
-      localStorage.setItem("theme", isDark.value ? "dark" : "light");
-    };
+    const { isDark, toggleDark } = useTheme();
 
     const toggle = (event: Event) => {
       menu.value.toggle(event);
