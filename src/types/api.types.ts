@@ -1,6 +1,7 @@
 // src/types/api.types.ts
 
 import type { Shipment } from "@/models/product.model";
+import { ShippingAddress } from "@/models/shippingAddress.model";
 
 export interface IImage {
   id: string;
@@ -52,4 +53,31 @@ export interface ITokens {
 export interface IAuthResponse {
   user: IUser;
   tokens: ITokens;
+}
+
+export interface IOrderItemResponse {
+  id: string;
+  productId: string;
+  productName: string;
+  productImage: string;
+  quantity: number;
+  unitPrice: number;
+  totalPrice: number;
+}
+
+export interface IOrderResponse {
+  id: string;
+  userId: string;
+  items: IOrderItemResponse[];
+  status: "PENDING" | "PROCESSING" | "COMPLETED" | "CANCELLED";
+  subtotal: number;
+  discount: number;
+  shipping: number;
+  total: number;
+  shippingAddress: ShippingAddress;
+  stripeSessionId: string;
+  stripePaymentIntentId: string;
+  notes?: string;
+  createdAt: string;
+  updatedAt: string;
 }

@@ -33,11 +33,16 @@ export default defineComponent({
       this.form.order.shippingAddress = address;
     },
     async submitOrder() {
-      const res = await this.rest.createOrder(
-        this.cartStore.listProduct,
-        this.form.order.shippingAddress,
-      );
-      window.location.href = res.data.url;
+      try {
+        const res = await this.rest.createOrder(
+          this.cartStore.listProduct,
+          this.form.order.shippingAddress,
+        );
+        console.log("res:", res);
+        window.location.href = res.checkoutUrl;
+      } catch (err) {
+        console.error("Erro no submitOrder:", err);
+      }
     },
   },
 });

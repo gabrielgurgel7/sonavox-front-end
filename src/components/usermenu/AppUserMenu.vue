@@ -2,11 +2,12 @@
 import { defineComponent, ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
-import { ChevronDown, Settings, LogOut, UserStar, Moon, Sun } from "@lucide/vue";
+import { ChevronDown, Settings, LogOut, UserStar, Moon, Sun, ShoppingBag } from "@lucide/vue";
+
 import { useTheme } from "@/composables/useTheme";
 
 export default defineComponent({
-  components: { ChevronDown, Settings, LogOut, UserStar, Moon, Sun },
+  components: { ChevronDown, Settings, LogOut, UserStar, Moon, Sun, ShoppingBag },
   setup() {
     const authStore = useAuthStore();
     const menu = ref();
@@ -26,12 +27,17 @@ export default defineComponent({
         command: () => router.push("/admin"),
       },
       {
-        label: "Configurações",
-        command: () => {},
+        label: "Meus pedidos",
+        role: "CUSTOMER",
+        command: () => router.push("/orders"),
       },
       {
         label: "toggle-theme",
         command: toggleDark,
+      },
+      {
+        label: "Configurações",
+        command: () => {},
       },
       {
         label: "Sair",
@@ -69,7 +75,7 @@ export default defineComponent({
       popup
       unstyled
       :pt="{
-        root: 'bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm py-1 min-w-[160px]',
+        root: 'bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm py-1 min-w-[160px] outline-none',
         list: 'flex flex-col',
         item: 'px-1',
         itemContent: 'w-full',
@@ -85,11 +91,12 @@ export default defineComponent({
             :size="14"
             class="text-gray-400 dark:text-gray-500"
           />
-          <Settings
-            v-if="item.label === 'Configurações'"
+          <ShoppingBag
+            v-if="item.label === 'Meus pedidos'"
             :size="14"
             class="text-gray-400 dark:text-gray-500"
           />
+
           <Moon
             v-if="item.label === 'toggle-theme' && !isDark"
             :size="14"
@@ -97,6 +104,11 @@ export default defineComponent({
           />
           <Sun
             v-if="item.label === 'toggle-theme' && isDark"
+            :size="14"
+            class="text-gray-400 dark:text-gray-500"
+          />
+          <Settings
+            v-if="item.label === 'Configurações'"
             :size="14"
             class="text-gray-400 dark:text-gray-500"
           />
