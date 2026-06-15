@@ -16,7 +16,8 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      "ˆ/api": {
+      "^/api": {
+        // ← caret correto
         target: env.VITE_API_URL,
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),

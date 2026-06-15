@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { User } from "@/models/user.model";
+import { api } from "@/services/config";
 
 export const useAuthStore = defineStore("auth", {
   state: () => {
@@ -35,6 +36,17 @@ export const useAuthStore = defineStore("auth", {
     setRefreshToken(token: string) {
       localStorage.setItem("refreshToken", token);
       this.refreshToken = token;
+    },
+    async refreshAccessToken() {
+      try {
+        const res = await api.post("/auth/refresh", {
+          refreshToken: this.refreshToken,
+        });
+        this.setAccessToken(res.data.accessToken);
+      } catch {
+        this.logout();
+        window.location.href = "/login";
+      }
     },
     logout() {
       this.user = new User();

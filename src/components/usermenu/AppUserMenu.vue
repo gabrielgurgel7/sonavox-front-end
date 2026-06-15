@@ -30,7 +30,7 @@ export default defineComponent({
         command: () => {},
       },
       {
-        label: "toggle-theme", // identificador especial
+        label: "toggle-theme",
         command: toggleDark,
       },
       {

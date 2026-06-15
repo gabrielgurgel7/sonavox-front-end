@@ -104,7 +104,7 @@ export default defineComponent({
               src="../assets/imgs/logo_sonavox_header.svg"
               alt="Logo Sonavox"
               draggable="false"
-              class="dark:brightness-0 dark:invert h-6 md:h-8"
+              class="dark:brightness-0 dark:invert h-5 md:h-6"
             />
           </RouterLink>
         </figure>
