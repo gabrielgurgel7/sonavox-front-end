@@ -53,13 +53,39 @@ export default defineComponent({
 });
 </script>
 <template>
-  <main>
-    <h1 class="text-black">Produtos</h1>
-    <div v-if="loading.products">Carregando...</div>
-    <div v-else>
-      <div v-for="product in products" :key="product.id">
-        <ProductCard :product="product" />
-      </div>
+  <section class="px-4 py-6 sm:px-8 md:px-12">
+    <!-- Título -->
+    <h1 class="text-xl font-semibold text-gray-800 dark:text-white mb-6">
+      {{ $route.query.category ? $route.query.category : "Todos os produtos" }}
+    </h1>
+
+    <!-- Loading -->
+    <div
+      v-if="loading.products"
+      class="text-sm text-gray-400 text-center py-12"
+    >
+      Carregando...
     </div>
-  </main>
+
+    <!-- Vazio -->
+    <div
+      v-else-if="products.length === 0"
+      class="text-sm text-gray-400 text-center py-12"
+    >
+      Nenhum produto encontrado.
+    </div>
+
+    <!-- Grid -->
+    <div
+      v-else
+      class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4"
+    >
+      <ProductCard
+        v-for="product in products"
+        :key="product.id"
+        :product="product"
+        @view-product="$router.push(`/product/${product.id}`)"
+      />
+    </div>
+  </section>
 </template>
