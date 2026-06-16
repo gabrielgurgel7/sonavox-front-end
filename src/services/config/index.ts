@@ -7,7 +7,7 @@ export class AxiosConfig {
   // Configuração da baseURL:
   constructor(public baseURL: string = "/api") {
     this.$instance = axios.create({
-      baseURL: "/api",
+      baseURL: import.meta.env.VITE_API_URL,
     });
   }
 
