@@ -20,13 +20,23 @@ export default defineComponent({
         .getAll(this.params)
         .then((res) => {
           console.log(res.data);
-          this.products = res.data.map(Product.fromResponse).filter((p: Product) => p.isActive);
+          this.products = res.data
+            .map(Product.fromResponse)
+            .filter((p: Product) => p.isActive);
         })
         .finally(() => (this.loading.products = false));
     },
   },
   mounted() {
+    const category = this.$route.query.category as string;
+    if (category) this.params.categoryId = category;
     this.getAllProducts();
+  },
+  watch: {
+    "$route.query.category"(newCategory) {
+      this.params.categoryId = newCategory as string;
+      this.getAllProducts();
+    },
   },
   components: { ProductCard },
 });

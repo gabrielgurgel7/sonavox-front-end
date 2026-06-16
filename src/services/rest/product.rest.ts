@@ -1,15 +1,20 @@
+import type { QueryParams } from "@/models/queryParams";
 import { HttpClient, type IHttp } from "../config/config";
 import type { IProductResponse } from "@/types/api.types";
 
 export class ProductRest {
   constructor(private httpClient: IHttp = new HttpClient()) {}
 
-  getAll(_params: unknown): Promise<{ data: IProductResponse[] }> {
-    return this.httpClient.get("/products") as Promise<{ data: IProductResponse[] }>;
+  getAll(params?: QueryParams): Promise<{ data: IProductResponse[] }> {
+    return this.httpClient.get("/products", params) as Promise<{
+      data: IProductResponse[];
+    }>;
   }
 
   getById(id: string): Promise<{ data: IProductResponse }> {
-    return this.httpClient.get(`/products/${id}`) as Promise<{ data: IProductResponse }>;
+    return this.httpClient.get(`/products/${id}`) as Promise<{
+      data: IProductResponse;
+    }>;
   }
 
   create(body: unknown): Promise<unknown> {
