@@ -1,49 +1,119 @@
-# .
+# 🎵 Sonavox — E-commerce de Instrumentos Musicais
 
-This template should help get you started developing with Vue 3 in Vite.
+Plataforma de e-commerce completa para venda de instrumentos musicais e acessórios, desenvolvida como projeto prático de curso com Vue 3, TypeScript e integração com Stripe.
 
-## Recommended IDE Setup
+🔗 **[Ver projeto ao vivo](https://sonavox-front-end.vercel.app)**
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+---
 
-## Recommended Browser Setup
+## ✨ Funcionalidades
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+- 🛒 Catálogo de produtos com filtro por categoria
+- 🔍 Busca de produtos
+- 🛍️ Carrinho de compras com drawer lateral
+- 💳 Checkout em 4 etapas com pagamento via Stripe
+- 📦 Histórico de pedidos
+- 🌙 Modo escuro / claro
+- 📱 Layout responsivo
+- 🔐 Autenticação com JWT (login, registro, refresh token)
+- ⚙️ Painel administrativo com CRUD de produtos
 
-## Type Support for `.vue` Imports in TS
+---
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## 🚀 Stack
 
-## Customize configuration
+**Frontend**
+- Vue 3 (Options API)
+- TypeScript
+- Tailwind CSS
+- PrimeVue (Lara theme, unstyled + PassThrough)
+- Vue Router
+- Pinia
+- Axios
+- Vuelidate
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+**Backend**
+- Node.js + Express
+- TypeScript
+- PostgreSQL
+- Stripe
+- Cloudinary
+- JWT
 
-## Project Setup
+---
 
-```sh
+## 🖥️ Rodando localmente
+
+### Pré-requisitos
+- Node.js 18+
+- Docker (para o banco de dados)
+
+### Instalação
+
+```bash
+# Clone o repositório
+git clone https://github.com/gabrielgurgel7/sonavox-front-end.git
+cd sonavox-front-end
+
+# Instale as dependências
 npm install
+
+# Configure as variáveis de ambiente
+cp .env.example .env
+# Edite o .env com suas configurações
 ```
 
-### Compile and Hot-Reload for Development
+### Variáveis de ambiente
 
-```sh
+```env
+VITE_API_URL=http://localhost:3000/api
+VITE_APP_URL=http://localhost:5173
+```
+
+### Rodando
+
+```bash
+# Desenvolvimento
 npm run dev
-```
 
-### Type-Check, Compile and Minify for Production
-
-```sh
+# Build para produção
 npm run build
-```
 
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
+# Lint
 npm run lint
 ```
-# sonavox-e-commerce-tichub12
+
+---
+
+## 📁 Estrutura do projeto
+
+```
+src/
+├── assets/          # Imagens e estilos globais
+├── components/      # Componentes reutilizáveis
+│   ├── cart/        # Carrinho
+│   ├── checkout/    # Etapas do checkout
+│   ├── common/      # Componentes genéricos
+│   ├── layout/      # Header, Footer, Banner
+│   └── promo/       # Barra promocional
+├── composables/     # Lógica reutilizável (useTheme)
+├── guards/          # Navigation guards
+├── layouts/         # CustomerLayout, AdminLayout
+├── models/          # Classes de domínio
+├── services/        # Camada de serviços e REST
+├── stores/          # Pinia stores (auth, cart)
+├── types/           # Interfaces TypeScript
+└── views/           # Páginas da aplicação
+```
+
+---
+
+## 🌐 Deploy
+
+| Serviço | Plataforma |
+|---------|-----------|
+| Frontend | Vercel |
+| Backend | Railway |
+| Banco de dados | Railway PostgreSQL |
+| Imagens | Cloudinary |
+| Pagamentos | Stripe (modo teste) |
