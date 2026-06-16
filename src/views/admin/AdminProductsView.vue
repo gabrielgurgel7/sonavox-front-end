@@ -3,6 +3,7 @@ import { defineComponent } from "vue";
 import { ProductRest } from "@/services/rest/product.rest";
 import { Product } from "@/models/product.model";
 import { Plus, Pencil, Trash2, Package } from "@lucide/vue";
+import { QueryParams } from "@/models/queryParams";
 
 export default defineComponent({
   components: { Plus, Pencil, Trash2, Package },
@@ -17,7 +18,7 @@ export default defineComponent({
     async getProducts() {
       this.loading = true;
       this.rest
-        .getAll({})
+        .getAll(new QueryParams())
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .then((res: any) => {
           this.products = (res.data ?? res).map(Product.fromResponse);
@@ -45,8 +46,12 @@ export default defineComponent({
     <!-- Header -->
     <div class="flex items-center justify-between">
       <div>
-        <h1 class="text-2xl font-semibold text-gray-800 dark:text-white">Produtos</h1>
-        <p class="text-sm text-gray-400 mt-1">{{ products.length }} produtos cadastrados</p>
+        <h1 class="text-2xl font-semibold text-gray-800 dark:text-white">
+          Produtos
+        </h1>
+        <p class="text-sm text-gray-400 mt-1">
+          {{ products.length }} produtos cadastrados
+        </p>
       </div>
       <RouterLink
         to="/admin/products/create"
@@ -58,7 +63,9 @@ export default defineComponent({
     </div>
 
     <!-- Loading -->
-    <div v-if="loading" class="text-sm text-gray-400 text-center py-12">Carregando...</div>
+    <div v-if="loading" class="text-sm text-gray-400 text-center py-12">
+      Carregando...
+    </div>
 
     <!-- Vazio -->
     <div
@@ -67,7 +74,9 @@ export default defineComponent({
     >
       <Package :size="40" class="text-gray-300" />
       <p class="text-sm">Nenhum produto cadastrado ainda.</p>
-      <RouterLink to="/admin/products/create" class="text-sm text-indigo-500 hover:text-indigo-400"
+      <RouterLink
+        to="/admin/products/create"
+        class="text-sm text-indigo-500 hover:text-indigo-400"
         >Cadastrar primeiro produto</RouterLink
       >
     </div>
@@ -140,14 +149,17 @@ export default defineComponent({
 
             <!-- SKU -->
             <td class="px-6 py-4">
-              <span class="text-xs font-mono text-gray-500 dark:text-gray-400">{{
-                product.sku
-              }}</span>
+              <span
+                class="text-xs font-mono text-gray-500 dark:text-gray-400"
+                >{{ product.sku }}</span
+              >
             </td>
 
             <!-- Preço -->
             <td class="px-6 py-4">
-              <span class="text-sm text-gray-800 dark:text-white">{{ product.formatedPrice }}</span>
+              <span class="text-sm text-gray-800 dark:text-white">{{
+                product.formatedPrice
+              }}</span>
             </td>
 
             <!-- Estoque -->
@@ -187,7 +199,10 @@ export default defineComponent({
                   :to="`/admin/products/${product.id}/edit`"
                   class="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-indigo-50 dark:hover:bg-gray-700 transition-colors"
                 >
-                  <Pencil :size="14" class="text-gray-400 hover:text-indigo-500" />
+                  <Pencil
+                    :size="14"
+                    class="text-gray-400 hover:text-indigo-500"
+                  />
                 </RouterLink>
                 <button
                   class="h-8 w-8 rounded-lg flex items-center justify-center hover:bg-red-50 dark:hover:bg-red-950 transition-colors cursor-pointer border-none bg-transparent"
