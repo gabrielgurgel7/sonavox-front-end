@@ -11,4 +11,22 @@ export class ProductRest {
   getById(id: string): Promise<{ data: IProductResponse }> {
     return this.httpClient.get(`/products/${id}`) as Promise<{ data: IProductResponse }>;
   }
+
+  create(body: unknown): Promise<unknown> {
+    return this.httpClient.post("/products", body);
+  }
+
+  uploadImage(productId: string, file: File): Promise<unknown> {
+    const formData = new FormData();
+    formData.append("image", file);
+    return this.httpClient.post(`/products/${productId}/images`, formData);
+  }
+
+  delete(id: string): Promise<unknown> {
+    return this.httpClient.delete(`/products/${id}`);
+  }
+
+  update(id: string, body: unknown): Promise<unknown> {
+    return this.httpClient.put(`/products/${id}`, body);
+  }
 }

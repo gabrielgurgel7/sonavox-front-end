@@ -19,7 +19,8 @@ export default defineComponent({
       this.rest
         .getAll(this.params)
         .then((res) => {
-          this.products = res.data.map(Product.fromResponse);
+          console.log(res.data);
+          this.products = res.data.map(Product.fromResponse).filter((p: Product) => p.isActive);
         })
         .finally(() => (this.loading.products = false));
     },

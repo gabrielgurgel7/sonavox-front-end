@@ -18,6 +18,9 @@ import HistoryView from "@/views/HistoryView.vue";
 import CustomerOrdersView from "@/views/CustomerOrdersView.vue";
 
 import { useCartStore } from "@/stores/cart";
+import ProductCreateView from "@/views/admin/ProductCreateView.vue";
+import AdminProductsView from "@/views/admin/AdminProductsView.vue";
+import ProductEditView from "@/views/admin/ProductEditView.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -96,7 +99,15 @@ const router = createRouter({
         },
         {
           path: "products",
-          component: ProductsView,
+          component: AdminProductsView,
+        },
+        {
+          path: "products/create",
+          component: ProductCreateView,
+        },
+        {
+          path: "products/:id/edit",
+          component: ProductEditView,
         },
       ],
     },

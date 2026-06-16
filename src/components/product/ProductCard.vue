@@ -31,8 +31,8 @@ export default defineComponent({
     class="flex flex-col w-full border border-gray-300 dark:border-gray-700 rounded-3xl overflow-hidden"
   >
     <!-- Imagem do produto -->
-    <figure class="m-0" @click="$emit('view-product', product)">
-      <img class="w-full aspect-square object-cover" :src="mainImage" :alt="product?.name" />
+    <figure class="m-0 bg-gray-50 dark:bg-neutral-50" @click="$emit('view-product', product)">
+      <img class="w-full aspect-square object-contain" :src="mainImage" :alt="product?.name" />
     </figure>
 
     <!-- Corpo do card -->

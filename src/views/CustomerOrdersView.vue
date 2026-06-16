@@ -16,9 +16,9 @@ export default defineComponent({
       this.loading = true;
       this.rest
         .getMyOrders()
-        .then((res) => {
-          console.log(JSON.stringify(res, null, 2));
-          this.orders = res as IOrderResponse[];
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .then((res: any) => {
+          this.orders = res.data;
         })
         .catch((err) => console.error(err))
         .finally(() => (this.loading = false));
@@ -43,6 +43,7 @@ export default defineComponent({
       const map: Record<string, string> = {
         PENDING: "Pendente",
         PROCESSING: "Processando",
+        PAID: "Pago",
         COMPLETED: "Concluído",
         CANCELLED: "Cancelado",
       };
@@ -52,6 +53,7 @@ export default defineComponent({
       const map: Record<string, string> = {
         PENDING: "bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300",
         PROCESSING: "bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300",
+        PAID: "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300",
         COMPLETED: "bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300",
         CANCELLED: "bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300",
       };

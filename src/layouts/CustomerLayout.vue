@@ -87,14 +87,34 @@ export default defineComponent({
     <header
       class="relative h-16 md:h-20 flex flex-row items-center justify-between px-4 md:px-12 bg-neutral-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800"
     >
+      <!-- Menu sanduíche — só no mobile -->
       <slot name="menu-sanduich">
         <PrimeButton
           unstyled
-          class="h-9 w-9 rounded-full bg-transparent flex items-center justify-center hover:bg-indigo-50 dark:hover:bg-gray-800 transition-colors shrink-0"
+          class="md:hidden h-9 w-9 rounded-full bg-transparent flex items-center justify-center hover:bg-indigo-50 dark:hover:bg-gray-800 transition-colors shrink-0"
           @click="mobileMenuOpen = !mobileMenuOpen"
         >
           <MenuIcon class="text-indigo-600" />
         </PrimeButton>
+
+        <!-- Pesquisa — só no desktop/tablet -->
+        <div
+          class="hidden md:flex flex-row items-center border border-gray-300 dark:border-gray-700 bg-transparent rounded-full focus-within:border-indigo-400 transition-colors"
+        >
+          <label for="search-header" class="sr-only">Pesquisar produtos</label>
+          <input
+            id="search-header"
+            class="h-9 px-3 rounded-full text-sm text-black dark:text-white outline-none placeholder:text-gray-400 bg-transparent"
+            type="search"
+            placeholder="Pesquisar"
+          />
+          <PrimeButton
+            unstyled
+            class="h-9 w-9 rounded-full bg-transparent flex items-center justify-center cursor-pointer hover:bg-indigo-50 dark:hover:bg-gray-800 transition-colors shrink-0"
+          >
+            <SearchIcon :size="20" class="text-indigo-600" />
+          </PrimeButton>
+        </div>
       </slot>
 
       <slot name="brand">
@@ -223,11 +243,11 @@ export default defineComponent({
     <nav class="p-2 bg-neutral-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
       <slot name="nav">
         <div
-          class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 px-4 md:px-12"
+          class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 px-4 md:px-8"
         >
           <!-- Busca -->
           <div
-            class="flex flex-row items-center border border-gray-300 dark:border-gray-700 bg-transparent rounded-full focus-within:border-indigo-400 transition-colors w-full md:w-auto"
+            class="md:hidden flex flex-row items-center border border-gray-300 dark:border-gray-700 bg-transparent rounded-full focus-within:border-indigo-400 transition-colors w-full"
           >
             <slot name="search">
               <label for="search" class="sr-only">Pesquisar produtos</label>
@@ -247,7 +267,7 @@ export default defineComponent({
           </div>
 
           <!-- PromoBar — esconde no mobile -->
-          <div class="hidden md:block flex-1 px-4">
+          <div class="hidden md:block flex-1">
             <PromoBar />
           </div>
 

@@ -34,10 +34,10 @@ export default defineComponent({
     },
     async submitOrder() {
       try {
-        const res = await this.rest.createOrder(
+        const res = (await this.rest.createOrder(
           this.cartStore.listProduct,
           this.form.order.shippingAddress,
-        );
+        )) as { checkoutUrl: string };
         console.log("res:", res);
         window.location.href = res.checkoutUrl;
       } catch (err) {

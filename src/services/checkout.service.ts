@@ -5,7 +5,7 @@ import { OrderRest } from "@/services/rest/order.rest";
 export class CheckOutService {
   constructor(private orderRest: OrderRest = new OrderRest()) {}
 
-  createOrder(items: ListProduct[], address: ShippingAddress): Promise<any> {
+  createOrder(items: ListProduct[], address: ShippingAddress): Promise<unknown> {
     const data = {
       shippingAddress: address,
       items: items.map((i) => ({
