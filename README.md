@@ -1,49 +1,81 @@
-# .
+# Sonavox 🎸
 
-This template should help get you started developing with Vue 3 in Vite.
+E-commerce full-stack para instrumentos musicais, desenvolvido como projeto prático da trilha Full-Stack do **TIC Hub 12 (IRede)**.
 
-## Recommended IDE Setup
+🔗 **Deploy:** [sonavox-front-end.vercel.app](https://sonavox-front-end.vercel.app)
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+> ⚠️ Projeto em desenvolvimento ativo.
 
-## Recommended Browser Setup
+---
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+## Sobre o projeto
 
-## Type Support for `.vue` Imports in TS
+Sonavox é uma loja virtual fictícia especializada em instrumentos musicais, construída para praticar conceitos de desenvolvimento full-stack: consumo de API REST, gerenciamento de estado, autenticação, formulários validados e uma UI responsiva.
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## Tecnologias
 
-## Customize configuration
+**Front-end**
+- [Vue 3](https://vuejs.org/) (Composition API)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vite.dev/)
+- [Vue Router](https://router.vuejs.org/)
+- [Pinia](https://pinia.vuejs.org/) — gerenciamento de estado
+- [PrimeVue](https://primevue.org/) — biblioteca de componentes
+- [Tailwind CSS v4](https://tailwindcss.com/)
+- [Vuelidate](https://vuelidate-next.netlify.app/) — validação de formulários
+- [Axios](https://axios-http.com/) — requisições HTTP
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+**Back-end**
+- Node.js + Express
+- MySQL
 
-## Project Setup
+## Rodando o projeto localmente
 
-```sh
+### Pré-requisitos
+- Node.js (`^20.19.0` ou `>=22.12.0`)
+- npm
+
+### Instalação
+
+```bash
+git clone https://github.com/gabrielgurgel7/sonavox-front-end.git
+cd sonavox-front-end
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Variáveis de ambiente
 
-```sh
+Crie um arquivo `.env` na raiz do projeto com as variáveis necessárias (veja `.env.example`, se disponível, ou consulte a documentação interna).
+
+### Desenvolvimento
+
+```bash
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+### Build de produção
 
-```sh
+```bash
 npm run build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+### Preview do build
 
-```sh
-npm run lint
+```bash
+npm run preview
 ```
-# sonavox-e-commerce-tichub12
+
+### Lint e formatação
+
+```bash
+npm run lint
+npm run format
+```
+
+## Deploy
+
+O deploy é feito automaticamente via [Vercel](https://vercel.com), a partir da branch `main`.
+
+## Autor
+
+Desenvolvido por [Gabriel Gurgel](https://github.com/gabrielgurgel7) como parte da trilha Full-Stack do TIC Hub 12 (IRede).
