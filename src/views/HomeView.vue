@@ -9,6 +9,7 @@ export default {
   data() {
     return {
       products: [] as Product[],
+      isLoading: true,
     };
   },
   computed: {
@@ -21,10 +22,14 @@ export default {
       this.$router.push(`/product/${product.id}`);
     },
     getProducts() {
-      this.rest.getAll({}).then((res) => {
-        console.log(res.data);
-        this.products = res.data.map(Product.fromResponse);
-      });
+      this.rest
+        .getAll({})
+        .then((res) => {
+          this.products = res.data.map(Product.fromResponse);
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
     },
   },
   mounted() {
@@ -40,6 +45,13 @@ export default {
   <section
     class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 px-4 py-4 sm:px-8 sm:py-6 md:px-12 md:py-8 w-full"
   >
-    <ProductCard v-for="product in products" :key="product.id" :product="product" />
+    <template v-if="isLoading">
+      <div
+        v-for="n in 8"
+        :key="n"
+        class="h-64 rounded-xl bg-gray-200 dark:bg-gray-800 animate-pulse"
+      />
+    </template>
+    <ProductCard v-else v-for="product in products" :key="product.id" :product="product" />
   </section>
 </template>
